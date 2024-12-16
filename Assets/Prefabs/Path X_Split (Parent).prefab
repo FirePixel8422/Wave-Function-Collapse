@@ -382,7 +382,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   connectors: 020000000200000001000000010000000200000002000000
   DEBUG_connectors: 
-  rarity: 100
+  rarity: 10
   flippable:
     x: 0
     y: 0

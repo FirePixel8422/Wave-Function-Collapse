@@ -152,11 +152,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CUBE: {fileID: 603188983721512061, guid: 0dd22269d7a01d841b1721b08cb55b68, type: 3}
-  gridSize:
-    x: 125
-    y: 1
-    z: 125
-  randomStartCellCount: 25
   tilePrefabs:
   - {fileID: -1600506921881979915, guid: d22967a5d0230ac4981089b4a7634448, type: 3}
   - {fileID: -5661285117566931388, guid: ce7a701aba5f1f24ca1c157ce8f22e17, type: 3}
@@ -174,11 +169,17 @@ MonoBehaviour:
   - {fileID: 2521648781062424110, guid: c830bea7900175c449bd86a1640d8e0b, type: 3}
   - {fileID: 2521648781062424110, guid: 157700447c04069468d7fc1d3ffc721a, type: 3}
   - {fileID: 5739462004687458370, guid: 808983c2e44afdd4bab4a53ba4fb501e, type: 3}
+  gridSize:
+    x: 50
+    y: 1
+    z: 50
+  startCellPositions: []
+  randomStartCellCount: 25
+  useGPUBasedRendering: 0
   randomColor: 0
   mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  meshData: []
   cellUpdateTimeMs: 1
-  cellUpdateCount: 10
+  cellUpdateCount: 5
 --- !u!4 &293420050
 Transform:
   m_ObjectHideFlags: 0
