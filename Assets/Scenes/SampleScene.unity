@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &41612532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,13 +160,13 @@ MonoBehaviour:
   startCellPositions: []
   randomStartCellCount: 25
   useGPUBasedRendering: 0
-  randomColor: 0
+  randomColor: 1
   gridWorldPos:
     x: 0
     y: 0
     z: 0
   mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  cellUpdateTimeMs: 10000
+  cellUpdateTimeMs: 1
   cellUpdateCount: 20
 --- !u!4 &41612533
 Transform:
@@ -199,7 +199,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &46548530
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,13 +221,13 @@ MonoBehaviour:
   startCellPositions: []
   randomStartCellCount: 25
   useGPUBasedRendering: 0
-  randomColor: 0
+  randomColor: 1
   gridWorldPos:
     x: 0
     y: 0
     z: 0
   mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  cellUpdateTimeMs: 10000
+  cellUpdateTimeMs: 1
   cellUpdateCount: 20
 --- !u!4 &46548531
 Transform:
@@ -260,7 +260,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &67605554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,13 +282,13 @@ MonoBehaviour:
   startCellPositions: []
   randomStartCellCount: 25
   useGPUBasedRendering: 0
-  randomColor: 0
+  randomColor: 1
   gridWorldPos:
     x: 0
     y: 0
     z: 0
   mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  cellUpdateTimeMs: 10000
+  cellUpdateTimeMs: 1
   cellUpdateCount: 20
 --- !u!4 &67605555
 Transform:
@@ -321,7 +321,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &102690689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,13 +343,13 @@ MonoBehaviour:
   startCellPositions: []
   randomStartCellCount: 25
   useGPUBasedRendering: 0
-  randomColor: 0
+  randomColor: 1
   gridWorldPos:
     x: 0
     y: 0
     z: 0
   mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  cellUpdateTimeMs: 10000
+  cellUpdateTimeMs: 1
   cellUpdateCount: 20
 --- !u!4 &102690690
 Transform:
@@ -396,11 +396,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CUBE: {fileID: 603188983721512061, guid: 0dd22269d7a01d841b1721b08cb55b68, type: 3}
-  generationTiles: {fileID: 11400000, guid: 4f359fa757e9ba04ab67544cee487d59, type: 2}
+  generationTiles: {fileID: 11400000, guid: 3d081105e38fae2448d88e6b4fe9fd8d, type: 2}
   gridSize:
-    x: 25
+    x: 100
     y: 1
-    z: 25
+    z: 100
   startCellPositions: []
   randomStartCellCount: 25
   useGPUBasedRendering: 0
@@ -410,7 +410,7 @@ MonoBehaviour:
     y: 0
     z: 0
   mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  cellUpdateTimeMs: 10000
+  cellUpdateTimeMs: 1
   cellUpdateCount: 20
 --- !u!4 &293420050
 Transform:
@@ -443,7 +443,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &308880200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -465,13 +465,13 @@ MonoBehaviour:
   startCellPositions: []
   randomStartCellCount: 25
   useGPUBasedRendering: 0
-  randomColor: 0
+  randomColor: 1
   gridWorldPos:
     x: 0
     y: 0
     z: 0
   mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  cellUpdateTimeMs: 10000
+  cellUpdateTimeMs: 1
   cellUpdateCount: 20
 --- !u!4 &308880201
 Transform:
@@ -582,6 +582,67 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &779861643
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 779861645}
+  - component: {fileID: 779861644}
+  m_Layer: 0
+  m_Name: MapGenerator (16)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &779861644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779861643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07c339bd33af9524bb7a7cdd9d45cb3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CUBE: {fileID: 603188983721512061, guid: 0dd22269d7a01d841b1721b08cb55b68, type: 3}
+  generationTiles: {fileID: 11400000, guid: 4f359fa757e9ba04ab67544cee487d59, type: 2}
+  gridSize:
+    x: 25
+    y: 1
+    z: 25
+  startCellPositions: []
+  randomStartCellCount: 25
+  useGPUBasedRendering: 0
+  randomColor: 1
+  gridWorldPos:
+    x: 0
+    y: 0
+    z: 0
+  mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
+  cellUpdateTimeMs: 1
+  cellUpdateCount: 20
+--- !u!4 &779861645
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 779861643}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &901057555
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,7 +659,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &901057556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -620,13 +681,13 @@ MonoBehaviour:
   startCellPositions: []
   randomStartCellCount: 25
   useGPUBasedRendering: 0
-  randomColor: 0
+  randomColor: 1
   gridWorldPos:
     x: 0
     y: 0
     z: 0
   mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  cellUpdateTimeMs: 10000
+  cellUpdateTimeMs: 1
   cellUpdateCount: 20
 --- !u!4 &901057557
 Transform:
@@ -751,7 +812,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1099076945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -773,13 +834,13 @@ MonoBehaviour:
   startCellPositions: []
   randomStartCellCount: 25
   useGPUBasedRendering: 0
-  randomColor: 0
+  randomColor: 1
   gridWorldPos:
     x: 0
     y: 0
     z: 0
   mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  cellUpdateTimeMs: 10000
+  cellUpdateTimeMs: 1
   cellUpdateCount: 20
 --- !u!4 &1099076946
 Transform:
@@ -812,7 +873,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1102395655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -834,13 +895,13 @@ MonoBehaviour:
   startCellPositions: []
   randomStartCellCount: 25
   useGPUBasedRendering: 0
-  randomColor: 0
+  randomColor: 1
   gridWorldPos:
     x: 0
     y: 0
     z: 0
   mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  cellUpdateTimeMs: 10000
+  cellUpdateTimeMs: 1
   cellUpdateCount: 20
 --- !u!4 &1102395656
 Transform:
@@ -873,7 +934,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1375380300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -895,13 +956,13 @@ MonoBehaviour:
   startCellPositions: []
   randomStartCellCount: 25
   useGPUBasedRendering: 0
-  randomColor: 0
+  randomColor: 1
   gridWorldPos:
     x: 0
     y: 0
     z: 0
   mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  cellUpdateTimeMs: 10000
+  cellUpdateTimeMs: 1
   cellUpdateCount: 20
 --- !u!4 &1375380301
 Transform:
@@ -934,7 +995,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1480239459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -956,13 +1017,13 @@ MonoBehaviour:
   startCellPositions: []
   randomStartCellCount: 25
   useGPUBasedRendering: 0
-  randomColor: 0
+  randomColor: 1
   gridWorldPos:
     x: 0
     y: 0
     z: 0
   mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  cellUpdateTimeMs: 10000
+  cellUpdateTimeMs: 1
   cellUpdateCount: 20
 --- !u!4 &1480239460
 Transform:
@@ -995,7 +1056,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1530967875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1017,13 +1078,13 @@ MonoBehaviour:
   startCellPositions: []
   randomStartCellCount: 25
   useGPUBasedRendering: 0
-  randomColor: 0
+  randomColor: 1
   gridWorldPos:
     x: 0
     y: 0
     z: 0
   mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  cellUpdateTimeMs: 10000
+  cellUpdateTimeMs: 1
   cellUpdateCount: 20
 --- !u!4 &1530967876
 Transform:
@@ -1056,7 +1117,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1548406623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1078,13 +1139,13 @@ MonoBehaviour:
   startCellPositions: []
   randomStartCellCount: 25
   useGPUBasedRendering: 0
-  randomColor: 0
+  randomColor: 1
   gridWorldPos:
     x: 0
     y: 0
     z: 0
   mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  cellUpdateTimeMs: 10000
+  cellUpdateTimeMs: 1
   cellUpdateCount: 20
 --- !u!4 &1548406624
 Transform:
@@ -1117,7 +1178,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1660492488
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1139,13 +1200,13 @@ MonoBehaviour:
   startCellPositions: []
   randomStartCellCount: 25
   useGPUBasedRendering: 0
-  randomColor: 0
+  randomColor: 1
   gridWorldPos:
     x: 0
     y: 0
     z: 0
   mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  cellUpdateTimeMs: 10000
+  cellUpdateTimeMs: 1
   cellUpdateCount: 20
 --- !u!4 &1660492489
 Transform:
@@ -1178,7 +1239,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1759077805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1200,13 +1261,13 @@ MonoBehaviour:
   startCellPositions: []
   randomStartCellCount: 25
   useGPUBasedRendering: 0
-  randomColor: 0
+  randomColor: 1
   gridWorldPos:
     x: 0
     y: 0
     z: 0
   mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  cellUpdateTimeMs: 10000
+  cellUpdateTimeMs: 1
   cellUpdateCount: 20
 --- !u!4 &1759077806
 Transform:
@@ -1239,7 +1300,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1908782240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1261,13 +1322,13 @@ MonoBehaviour:
   startCellPositions: []
   randomStartCellCount: 25
   useGPUBasedRendering: 0
-  randomColor: 0
+  randomColor: 1
   gridWorldPos:
     x: 0
     y: 0
     z: 0
   mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  cellUpdateTimeMs: 10000
+  cellUpdateTimeMs: 1
   cellUpdateCount: 20
 --- !u!4 &1908782241
 Transform:
@@ -1291,6 +1352,7 @@ SceneRoots:
   - {fileID: 963194228}
   - {fileID: 705507995}
   - {fileID: 293420050}
+  - {fileID: 779861645}
   - {fileID: 41612533}
   - {fileID: 102690690}
   - {fileID: 1480239460}
