@@ -8,7 +8,7 @@ public struct TileStruct
 {
     public int id;
 
-    public float rarity;
+    public float weight;
 
     public bool3 flippable;
 
@@ -16,11 +16,11 @@ public struct TileStruct
 
 
 
-    public TileStruct(int _id, float _rarity, bool3 _flippable, int[] _connectors)
+    public TileStruct(int _id, float _weight, bool3 _flippable, int[] _connectors)
     {
         id = _id;
 
-        rarity = _rarity;
+        weight = _weight;
 
         flippable = _flippable;
 

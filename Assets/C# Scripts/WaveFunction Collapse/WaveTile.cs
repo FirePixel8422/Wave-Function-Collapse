@@ -9,7 +9,7 @@ public class WaveTile : MonoBehaviour
     public int[] connectors = new int[] { -1, -1, -1, -1, -1, -1 };
     public int[] DEBUG_connectors;
 
-    public float rarity;
+    public float weight;
 
     public bool3 flippable;
 
