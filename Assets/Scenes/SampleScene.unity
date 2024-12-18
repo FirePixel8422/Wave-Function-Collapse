@@ -122,250 +122,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &41612531
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 41612533}
-  - component: {fileID: 41612532}
-  m_Layer: 0
-  m_Name: MapGenerator (8)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &41612532
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 41612531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07c339bd33af9524bb7a7cdd9d45cb3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CUBE: {fileID: 603188983721512061, guid: 0dd22269d7a01d841b1721b08cb55b68, type: 3}
-  generationTiles: {fileID: 11400000, guid: 4f359fa757e9ba04ab67544cee487d59, type: 2}
-  gridSize:
-    x: 25
-    y: 1
-    z: 25
-  startCellPositions: []
-  randomStartCellCount: 25
-  useGPUBasedRendering: 0
-  randomColor: 1
-  gridWorldPos:
-    x: 0
-    y: 0
-    z: 0
-  mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  cellUpdateTimeMs: 1
-  cellUpdateCount: 20
---- !u!4 &41612533
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 41612531}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -50}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &46548529
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 46548531}
-  - component: {fileID: 46548530}
-  m_Layer: 0
-  m_Name: MapGenerator (7)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &46548530
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 46548529}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07c339bd33af9524bb7a7cdd9d45cb3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CUBE: {fileID: 603188983721512061, guid: 0dd22269d7a01d841b1721b08cb55b68, type: 3}
-  generationTiles: {fileID: 11400000, guid: 4f359fa757e9ba04ab67544cee487d59, type: 2}
-  gridSize:
-    x: 25
-    y: 1
-    z: 25
-  startCellPositions: []
-  randomStartCellCount: 25
-  useGPUBasedRendering: 0
-  randomColor: 1
-  gridWorldPos:
-    x: 0
-    y: 0
-    z: 0
-  mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  cellUpdateTimeMs: 1
-  cellUpdateCount: 20
---- !u!4 &46548531
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 46548529}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25, y: 0, z: -25}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &67605553
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 67605555}
-  - component: {fileID: 67605554}
-  m_Layer: 0
-  m_Name: MapGenerator (10)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &67605554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 67605553}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07c339bd33af9524bb7a7cdd9d45cb3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CUBE: {fileID: 603188983721512061, guid: 0dd22269d7a01d841b1721b08cb55b68, type: 3}
-  generationTiles: {fileID: 11400000, guid: 4f359fa757e9ba04ab67544cee487d59, type: 2}
-  gridSize:
-    x: 25
-    y: 1
-    z: 25
-  startCellPositions: []
-  randomStartCellCount: 25
-  useGPUBasedRendering: 0
-  randomColor: 1
-  gridWorldPos:
-    x: 0
-    y: 0
-    z: 0
-  mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  cellUpdateTimeMs: 1
-  cellUpdateCount: 20
---- !u!4 &67605555
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 67605553}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -75}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &102690688
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 102690690}
-  - component: {fileID: 102690689}
-  m_Layer: 0
-  m_Name: MapGenerator (4)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &102690689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 102690688}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07c339bd33af9524bb7a7cdd9d45cb3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CUBE: {fileID: 603188983721512061, guid: 0dd22269d7a01d841b1721b08cb55b68, type: 3}
-  generationTiles: {fileID: 11400000, guid: 4f359fa757e9ba04ab67544cee487d59, type: 2}
-  gridSize:
-    x: 25
-    y: 1
-    z: 25
-  startCellPositions: []
-  randomStartCellCount: 25
-  useGPUBasedRendering: 0
-  randomColor: 1
-  gridWorldPos:
-    x: 0
-    y: 0
-    z: 0
-  mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  cellUpdateTimeMs: 1
-  cellUpdateCount: 20
---- !u!4 &102690690
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 102690688}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 50, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &293420048
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,23 +151,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c339bd33af9524bb7a7cdd9d45cb3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CUBE: {fileID: 603188983721512061, guid: 0dd22269d7a01d841b1721b08cb55b68, type: 3}
-  generationTiles: {fileID: 11400000, guid: 3d081105e38fae2448d88e6b4fe9fd8d, type: 2}
+  generationTiles: {fileID: 11400000, guid: ee3541b80a9bf2245bfe122a90ecb847, type: 2}
   gridSize:
     x: 100
     y: 1
     z: 100
-  startCellPositions: []
-  randomStartCellCount: 25
+  edgeRequiredConnection: 2
   useGPUBasedRendering: 0
   randomColor: 0
-  gridWorldPos:
-    x: 0
-    y: 0
-    z: 0
   mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
   cellUpdateTimeMs: 1
-  cellUpdateCount: 20
+  cellUpdateCount: 15
 --- !u!4 &293420050
 Transform:
   m_ObjectHideFlags: 0
@@ -427,7 +177,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &308880199
+--- !u!1 &360973881
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -435,54 +185,103 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 308880201}
-  - component: {fileID: 308880200}
+  - component: {fileID: 360973883}
+  - component: {fileID: 360973882}
   m_Layer: 0
-  m_Name: MapGenerator (2)
+  m_Name: MapGenerator (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &308880200
+--- !u!114 &360973882
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 308880199}
+  m_GameObject: {fileID: 360973881}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 07c339bd33af9524bb7a7cdd9d45cb3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CUBE: {fileID: 603188983721512061, guid: 0dd22269d7a01d841b1721b08cb55b68, type: 3}
-  generationTiles: {fileID: 11400000, guid: 4f359fa757e9ba04ab67544cee487d59, type: 2}
+  generationTiles: {fileID: 11400000, guid: ee3541b80a9bf2245bfe122a90ecb847, type: 2}
   gridSize:
-    x: 25
+    x: 50
     y: 1
-    z: 25
-  startCellPositions: []
-  randomStartCellCount: 25
+    z: 50
+  edgeRequiredConnection: 2
   useGPUBasedRendering: 0
-  randomColor: 1
-  gridWorldPos:
-    x: 0
-    y: 0
-    z: 0
+  randomColor: 0
   mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
   cellUpdateTimeMs: 1
-  cellUpdateCount: 20
---- !u!4 &308880201
+  cellUpdateCount: 12
+--- !u!4 &360973883
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 308880199}
+  m_GameObject: {fileID: 360973881}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -25}
+  m_LocalPosition: {x: -25, y: 0, z: 25}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &407821592
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 407821594}
+  - component: {fileID: 407821593}
+  m_Layer: 0
+  m_Name: MapGenerator (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &407821593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407821592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07c339bd33af9524bb7a7cdd9d45cb3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  generationTiles: {fileID: 11400000, guid: fd720297b4c99674b8745389499a0c9d, type: 2}
+  gridSize:
+    x: 50
+    y: 1
+    z: 50
+  edgeRequiredConnection: 2
+  useGPUBasedRendering: 0
+  randomColor: 0
+  mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
+  cellUpdateTimeMs: 1
+  cellUpdateCount: 12
+--- !u!4 &407821594
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 407821592}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -25, y: 0, z: -25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -582,128 +381,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &779861643
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 779861645}
-  - component: {fileID: 779861644}
-  m_Layer: 0
-  m_Name: MapGenerator (16)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &779861644
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 779861643}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07c339bd33af9524bb7a7cdd9d45cb3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CUBE: {fileID: 603188983721512061, guid: 0dd22269d7a01d841b1721b08cb55b68, type: 3}
-  generationTiles: {fileID: 11400000, guid: 4f359fa757e9ba04ab67544cee487d59, type: 2}
-  gridSize:
-    x: 25
-    y: 1
-    z: 25
-  startCellPositions: []
-  randomStartCellCount: 25
-  useGPUBasedRendering: 0
-  randomColor: 1
-  gridWorldPos:
-    x: 0
-    y: 0
-    z: 0
-  mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  cellUpdateTimeMs: 1
-  cellUpdateCount: 20
---- !u!4 &779861645
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 779861643}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &901057555
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 901057557}
-  - component: {fileID: 901057556}
-  m_Layer: 0
-  m_Name: MapGenerator (15)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &901057556
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 901057555}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07c339bd33af9524bb7a7cdd9d45cb3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CUBE: {fileID: 603188983721512061, guid: 0dd22269d7a01d841b1721b08cb55b68, type: 3}
-  generationTiles: {fileID: 11400000, guid: 4f359fa757e9ba04ab67544cee487d59, type: 2}
-  gridSize:
-    x: 25
-    y: 1
-    z: 25
-  startCellPositions: []
-  randomStartCellCount: 25
-  useGPUBasedRendering: 0
-  randomColor: 1
-  gridWorldPos:
-    x: 0
-    y: 0
-    z: 0
-  mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  cellUpdateTimeMs: 1
-  cellUpdateCount: 20
---- !u!4 &901057557
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 901057555}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25, y: 0, z: -75}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -796,7 +473,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1099076944
+--- !u!1 &1654959510
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -804,60 +481,54 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1099076946}
-  - component: {fileID: 1099076945}
+  - component: {fileID: 1654959512}
+  - component: {fileID: 1654959511}
   m_Layer: 0
-  m_Name: MapGenerator (6)
+  m_Name: MapGenerator (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &1099076945
+--- !u!114 &1654959511
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1099076944}
+  m_GameObject: {fileID: 1654959510}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 07c339bd33af9524bb7a7cdd9d45cb3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CUBE: {fileID: 603188983721512061, guid: 0dd22269d7a01d841b1721b08cb55b68, type: 3}
-  generationTiles: {fileID: 11400000, guid: 4f359fa757e9ba04ab67544cee487d59, type: 2}
+  generationTiles: {fileID: 11400000, guid: 3104cab900d859f468fdbcefa86d8b22, type: 2}
   gridSize:
-    x: 25
+    x: 50
     y: 1
-    z: 25
-  startCellPositions: []
-  randomStartCellCount: 25
+    z: 50
+  edgeRequiredConnection: 2
   useGPUBasedRendering: 0
-  randomColor: 1
-  gridWorldPos:
-    x: 0
-    y: 0
-    z: 0
+  randomColor: 0
   mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
   cellUpdateTimeMs: 1
-  cellUpdateCount: 20
---- !u!4 &1099076946
+  cellUpdateCount: 12
+--- !u!4 &1654959512
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1099076944}
+  m_GameObject: {fileID: 1654959510}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25, y: 0, z: 0}
+  m_LocalPosition: {x: 25, y: 0, z: 25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1102395654
+--- !u!1 &1997305992
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -865,69 +536,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1102395656}
-  - component: {fileID: 1102395655}
-  m_Layer: 0
-  m_Name: MapGenerator (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1102395655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1102395654}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07c339bd33af9524bb7a7cdd9d45cb3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CUBE: {fileID: 603188983721512061, guid: 0dd22269d7a01d841b1721b08cb55b68, type: 3}
-  generationTiles: {fileID: 11400000, guid: 4f359fa757e9ba04ab67544cee487d59, type: 2}
-  gridSize:
-    x: 25
-    y: 1
-    z: 25
-  startCellPositions: []
-  randomStartCellCount: 25
-  useGPUBasedRendering: 0
-  randomColor: 1
-  gridWorldPos:
-    x: 0
-    y: 0
-    z: 0
-  mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  cellUpdateTimeMs: 1
-  cellUpdateCount: 20
---- !u!4 &1102395656
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1102395654}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -25, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1375380299
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1375380301}
-  - component: {fileID: 1375380300}
+  - component: {fileID: 1997305994}
+  - component: {fileID: 1997305993}
   m_Layer: 0
   m_Name: MapGenerator (5)
   m_TagString: Untagged
@@ -935,411 +545,39 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &1375380300
+--- !u!114 &1997305993
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1375380299}
+  m_GameObject: {fileID: 1997305992}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 07c339bd33af9524bb7a7cdd9d45cb3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CUBE: {fileID: 603188983721512061, guid: 0dd22269d7a01d841b1721b08cb55b68, type: 3}
   generationTiles: {fileID: 11400000, guid: 4f359fa757e9ba04ab67544cee487d59, type: 2}
   gridSize:
-    x: 25
+    x: 50
     y: 1
-    z: 25
-  startCellPositions: []
-  randomStartCellCount: 25
+    z: 50
+  edgeRequiredConnection: 2
   useGPUBasedRendering: 0
-  randomColor: 1
-  gridWorldPos:
-    x: 0
-    y: 0
-    z: 0
+  randomColor: 0
   mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
   cellUpdateTimeMs: 1
-  cellUpdateCount: 20
---- !u!4 &1375380301
+  cellUpdateCount: 12
+--- !u!4 &1997305994
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1375380299}
+  m_GameObject: {fileID: 1997305992}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 50, y: 0, z: -25}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1480239458
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1480239460}
-  - component: {fileID: 1480239459}
-  m_Layer: 0
-  m_Name: MapGenerator (9)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1480239459
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1480239458}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07c339bd33af9524bb7a7cdd9d45cb3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CUBE: {fileID: 603188983721512061, guid: 0dd22269d7a01d841b1721b08cb55b68, type: 3}
-  generationTiles: {fileID: 11400000, guid: 4f359fa757e9ba04ab67544cee487d59, type: 2}
-  gridSize:
-    x: 25
-    y: 1
-    z: 25
-  startCellPositions: []
-  randomStartCellCount: 25
-  useGPUBasedRendering: 0
-  randomColor: 1
-  gridWorldPos:
-    x: 0
-    y: 0
-    z: 0
-  mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  cellUpdateTimeMs: 1
-  cellUpdateCount: 20
---- !u!4 &1480239460
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1480239458}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 50, y: 0, z: -50}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1530967874
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1530967876}
-  - component: {fileID: 1530967875}
-  m_Layer: 0
-  m_Name: MapGenerator (11)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1530967875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1530967874}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07c339bd33af9524bb7a7cdd9d45cb3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CUBE: {fileID: 603188983721512061, guid: 0dd22269d7a01d841b1721b08cb55b68, type: 3}
-  generationTiles: {fileID: 11400000, guid: 4f359fa757e9ba04ab67544cee487d59, type: 2}
-  gridSize:
-    x: 25
-    y: 1
-    z: 25
-  startCellPositions: []
-  randomStartCellCount: 25
-  useGPUBasedRendering: 0
-  randomColor: 1
-  gridWorldPos:
-    x: 0
-    y: 0
-    z: 0
-  mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  cellUpdateTimeMs: 1
-  cellUpdateCount: 20
---- !u!4 &1530967876
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1530967874}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 50, y: 0, z: -75}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1548406622
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1548406624}
-  - component: {fileID: 1548406623}
-  m_Layer: 0
-  m_Name: MapGenerator (13)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1548406623
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1548406622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07c339bd33af9524bb7a7cdd9d45cb3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CUBE: {fileID: 603188983721512061, guid: 0dd22269d7a01d841b1721b08cb55b68, type: 3}
-  generationTiles: {fileID: 11400000, guid: 4f359fa757e9ba04ab67544cee487d59, type: 2}
-  gridSize:
-    x: 25
-    y: 1
-    z: 25
-  startCellPositions: []
-  randomStartCellCount: 25
-  useGPUBasedRendering: 0
-  randomColor: 1
-  gridWorldPos:
-    x: 0
-    y: 0
-    z: 0
-  mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  cellUpdateTimeMs: 1
-  cellUpdateCount: 20
---- !u!4 &1548406624
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1548406622}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 25, y: 0, z: -50}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1660492487
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1660492489}
-  - component: {fileID: 1660492488}
-  m_Layer: 0
-  m_Name: MapGenerator (14)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1660492488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1660492487}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07c339bd33af9524bb7a7cdd9d45cb3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CUBE: {fileID: 603188983721512061, guid: 0dd22269d7a01d841b1721b08cb55b68, type: 3}
-  generationTiles: {fileID: 11400000, guid: 4f359fa757e9ba04ab67544cee487d59, type: 2}
-  gridSize:
-    x: 25
-    y: 1
-    z: 25
-  startCellPositions: []
-  randomStartCellCount: 25
-  useGPUBasedRendering: 0
-  randomColor: 1
-  gridWorldPos:
-    x: 0
-    y: 0
-    z: 0
-  mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  cellUpdateTimeMs: 1
-  cellUpdateCount: 20
---- !u!4 &1660492489
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1660492487}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -25, y: 0, z: -75}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1759077804
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1759077806}
-  - component: {fileID: 1759077805}
-  m_Layer: 0
-  m_Name: MapGenerator (3)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1759077805
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1759077804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07c339bd33af9524bb7a7cdd9d45cb3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CUBE: {fileID: 603188983721512061, guid: 0dd22269d7a01d841b1721b08cb55b68, type: 3}
-  generationTiles: {fileID: 11400000, guid: 4f359fa757e9ba04ab67544cee487d59, type: 2}
-  gridSize:
-    x: 25
-    y: 1
-    z: 25
-  startCellPositions: []
-  randomStartCellCount: 25
-  useGPUBasedRendering: 0
-  randomColor: 1
-  gridWorldPos:
-    x: 0
-    y: 0
-    z: 0
-  mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  cellUpdateTimeMs: 1
-  cellUpdateCount: 20
---- !u!4 &1759077806
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1759077804}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -25, y: 0, z: -25}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1908782239
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1908782241}
-  - component: {fileID: 1908782240}
-  m_Layer: 0
-  m_Name: MapGenerator (12)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &1908782240
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1908782239}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07c339bd33af9524bb7a7cdd9d45cb3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CUBE: {fileID: 603188983721512061, guid: 0dd22269d7a01d841b1721b08cb55b68, type: 3}
-  generationTiles: {fileID: 11400000, guid: 4f359fa757e9ba04ab67544cee487d59, type: 2}
-  gridSize:
-    x: 25
-    y: 1
-    z: 25
-  startCellPositions: []
-  randomStartCellCount: 25
-  useGPUBasedRendering: 0
-  randomColor: 1
-  gridWorldPos:
-    x: 0
-    y: 0
-    z: 0
-  mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
-  cellUpdateTimeMs: 1
-  cellUpdateCount: 20
---- !u!4 &1908782241
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1908782239}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -25, y: 0, z: -50}
+  m_LocalPosition: {x: 25, y: 0, z: -25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1352,19 +590,7 @@ SceneRoots:
   - {fileID: 963194228}
   - {fileID: 705507995}
   - {fileID: 293420050}
-  - {fileID: 779861645}
-  - {fileID: 41612533}
-  - {fileID: 102690690}
-  - {fileID: 1480239460}
-  - {fileID: 308880201}
-  - {fileID: 67605555}
-  - {fileID: 1375380301}
-  - {fileID: 1530967876}
-  - {fileID: 1102395656}
-  - {fileID: 1908782241}
-  - {fileID: 1099076946}
-  - {fileID: 1548406624}
-  - {fileID: 1759077806}
-  - {fileID: 1660492489}
-  - {fileID: 46548531}
-  - {fileID: 901057557}
+  - {fileID: 360973883}
+  - {fileID: 1654959512}
+  - {fileID: 407821594}
+  - {fileID: 1997305994}

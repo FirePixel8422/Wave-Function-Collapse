@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c27b23b46b4c2047b2e91b2a27e6780, type: 3}
+  m_Name: City Holes
+  m_EditorClassIdentifier: 
+  waveTileData:
+  - tilePrefab: {fileID: -1600506921881979915, guid: be9156ca3e8f5c0449a945176aeeaccd, type: 3}
+    weight: 2
+  - tilePrefab: {fileID: -1600506921881979915, guid: d22967a5d0230ac4981089b4a7634448, type: 3}
+    weight: 10
+  - tilePrefab: {fileID: 1351933352696284690, guid: f7d4445cd4f0a2d48b8338d3a9265fd1, type: 3}
+    weight: 100
+  - tilePrefab: {fileID: -5661285117566931388, guid: ce7a701aba5f1f24ca1c157ce8f22e17, type: 3}
+    weight: 1
+  - tilePrefab: {fileID: -5661285117566931388, guid: c7863f8250ba2a34b8451cbeb18119f4, type: 3}
+    weight: 1
+  - tilePrefab: {fileID: -5661285117566931388, guid: 911ba90c99a81c049b79c2709af12f93, type: 3}
+    weight: 1
+  - tilePrefab: {fileID: -5661285117566931388, guid: b4a8aeece295e4f409e12687311039de, type: 3}
+    weight: 1
+  - tilePrefab: {fileID: 3297929420533688013, guid: 64f6552f17a076e4eb7a5a49ae3f2f80, type: 3}
+    weight: 0.25
+  - tilePrefab: {fileID: 3297929420533688013, guid: 08a53dbdea3d6744dbed539f4d13cc1c, type: 3}
+    weight: 0.25
+  - tilePrefab: {fileID: 3297929420533688013, guid: 52fbbf6acf2bbb64493c9444087e85de, type: 3}
+    weight: 0.25
+  - tilePrefab: {fileID: 3297929420533688013, guid: fad497ab11bf2814ead816729dd7649f, type: 3}
+    weight: 0.25
+  - tilePrefab: {fileID: -6561776503106044672, guid: dda01299305eb7e4a9a301900d5cb11b, type: 3}
+    weight: 75
+  - tilePrefab: {fileID: -6561776503106044672, guid: 20541ea0fa66393409238670d2916054, type: 3}
+    weight: 75
+  - tilePrefab: {fileID: 2521648781062424110, guid: 56b1afca7e512f8488febb74ca9a0fb7, type: 3}
+    weight: 1
+  - tilePrefab: {fileID: 2521648781062424110, guid: a47e9aaa87e7fc04abe75f89ab08b092, type: 3}
+    weight: 1
+  - tilePrefab: {fileID: 2521648781062424110, guid: c830bea7900175c449bd86a1640d8e0b, type: 3}
+    weight: 1
+  - tilePrefab: {fileID: 2521648781062424110, guid: 157700447c04069468d7fc1d3ffc721a, type: 3}
+    weight: 1
+  - tilePrefab: {fileID: 5739462004687458370, guid: 808983c2e44afdd4bab4a53ba4fb501e, type: 3}
+    weight: 1

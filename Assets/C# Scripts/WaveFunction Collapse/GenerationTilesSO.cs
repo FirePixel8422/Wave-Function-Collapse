@@ -7,5 +7,13 @@ using UnityEngine;
 public class GenerationTilesSO : ScriptableObject
 {
     [Header("Tiles used for generation")]
-    public WaveTile[] tilePrefabs;
+    public WaveTileData[] waveTileData;
+}
+
+
+[System.Serializable]
+public struct WaveTileData
+{
+    public WaveTile tilePrefab;
+    public float weight;
 }

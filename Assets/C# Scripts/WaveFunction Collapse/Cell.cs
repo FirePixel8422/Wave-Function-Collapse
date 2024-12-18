@@ -5,7 +5,7 @@
 [BurstCompile]
 public struct Cell
 {
-    public int worldId;
+    public int id;
 
     public bool collapsed;
 
@@ -15,7 +15,7 @@ public struct Cell
 
     public Cell(int _id, bool _collapsed = false)
     {
-        worldId = _id;
+        id = _id;
 
         collapsed = _collapsed;
 

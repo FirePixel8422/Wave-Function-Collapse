@@ -377,7 +377,7 @@
 //    [BurstCompile]
 //    private void GenerateCurrentCellTile(Cell currentCell, NativeArray<int> requiredTileConnections, NativeArray<Cell> neighbours)
 //    {
-//        currentCell = cells[currentCell.worldId];
+//        currentCell = cells[currentCell.id];
 
 //        int toRandomizeIndex = currentCell.tileOptionsCount;
 
@@ -417,7 +417,7 @@
 //        int[] DEBUG_connecotrs = new int[6];
 
 
-//        GetNeighbourCells(currentCell.worldId, ref neighbours);
+//        GetNeighbourCells(currentCell.id, ref neighbours);
 //        for (int i = 0; i < neighbours.Length; i++)
 //        {
 //            if (neighbours[i].collapsed)
@@ -436,7 +436,7 @@
 
 
 //        //get gridPos
-//        int3 gridPos = LinearIndexToGridPos(currentCell.worldId);
+//        int3 gridPos = LinearIndexToGridPos(currentCell.id);
 
 //        //spawn tile
 //        WaveTile spawnedObj = Instantiate(tilePrefabs[finalTileType], new Vector3(gridPos.x - gridSize.x * 0.5f + 0.5f, gridPos.y - gridSize.y * 0.5f + 0.5f, gridPos.z - gridSize.z * 0.5f + 0.5f), tilePrefabs[finalTileType].transform.rotation);
@@ -545,7 +545,7 @@
 
 //        int[] DEBUG_connecotrs = new int[6];
 
-//        GetNeighbourCells(currentCell.worldId, ref neighbours);
+//        GetNeighbourCells(currentCell.id, ref neighbours);
 
 //        for (int i = 0; i < neighbours.Length; i++)
 //        {
@@ -565,7 +565,7 @@
 
 
 //        //get gridPos
-//        int3 gridPos = LinearIndexToGridPos(currentCell.worldId);
+//        int3 gridPos = LinearIndexToGridPos(currentCell.id);
 
 
 //        if (useGPUBasedRendering)
@@ -604,7 +604,7 @@
 //    [BurstCompile]
 //    private void CalculateRequiredTileConnections_OLD(Cell currentCell, NativeArray<Cell> neighbours, ref NativeArray<int> requiredTileConnections)
 //    {
-//        GetNeighbourCells(currentCell.worldId, ref neighbours);
+//        GetNeighbourCells(currentCell.id, ref neighbours);
 
 
 //        for (int neigbourId = 0; neigbourId < 6; neigbourId++)
@@ -679,7 +679,7 @@
 //        targetCell.tileOptionsCount = toRandomizeIndex;
 
 //        //update cell back
-//        cells[targetCell.worldId] = targetCell;
+//        cells[targetCell.id] = targetCell;
 
 //        DEBUG_cells = cells.ToArray();
 //    }
@@ -688,7 +688,7 @@
 //    [BurstCompile]
 //    private void GetRequiredTileConnections(Cell currentCell, NativeArray<Cell> neighbours, ref NativeArray<int> requiredTileConnections)
 //    {
-//        GetNeighbourCells(currentCell.worldId, ref neighbours);
+//        GetNeighbourCells(currentCell.id, ref neighbours);
 
 //        for (int neigbourId = 0; neigbourId < 6; neigbourId++)
 //        {
@@ -717,7 +717,7 @@
 //        //remove cell from nonCollapsedList
 //        for (int i = 0; i < nonColapsedCells.Count; i++)
 //        {
-//            if (nonColapsedCells[i].worldId == currentCell.worldId)
+//            if (nonColapsedCells[i].id == currentCell.id)
 //            {
 //                nonColapsedCells.RemoveAt(i);
 //                break;
@@ -731,7 +731,7 @@
 //        currentCell.tileType = finalTileType;
 
 //        //save copy back
-//        cells[currentCell.worldId] = currentCell;
+//        cells[currentCell.id] = currentCell;
 
 //        DEBUG_cells = cells.ToArray();
 //    }
@@ -745,7 +745,7 @@
 //        //if there is just 1 cell left, select it and return the function
 //        if (cellCount == 1)
 //        {
-//            return cells[nonColapsedCells[0].worldId];
+//            return cells[nonColapsedCells[0].id];
 //        }
 
 
@@ -756,7 +756,7 @@
 //        //loop over all cells
 //        for (int i = 0; i < cellCount; i++)
 //        {
-//            Cell targetCell = cells[nonColapsedCells[i].worldId];
+//            Cell targetCell = cells[nonColapsedCells[i].id];
 
 //            //if cell is colapsed, skip it
 //            if (targetCell.collapsed)
@@ -783,7 +783,7 @@
 
 //        int r = Random.Range(0, cellsToRandomizeId);
 
-//        return cells[nonColapsedCells[toRandomizeTilePool[r]].worldId];
+//        return cells[nonColapsedCells[toRandomizeTilePool[r]].id];
 //    }
 
 

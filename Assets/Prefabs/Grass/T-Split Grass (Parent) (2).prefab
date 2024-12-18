@@ -235,9 +235,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51c02d28520ae2f48b7867928f4602c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  connectors: 010000000300000001000000010000000300000003000000
+  connectors: 000000000000000002000000020000000000000000000000
+  reset: 0
+  areYouSureReset: 0
   DEBUG_connectors: 
-  weight: 1
   flippable:
     x: 1
     y: 0
