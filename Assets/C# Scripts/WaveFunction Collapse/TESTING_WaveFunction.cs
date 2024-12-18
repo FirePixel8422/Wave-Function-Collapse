@@ -35,7 +35,7 @@
 
 
 //    private NativeArray<Cell> cells;
-//    private List<Cell> nonColapsedCells;
+//    private List<Cell> nonCollapsedCells;
 
 
 //    //Native structure based copy of tilePrefabs data, so burst can go brrr
@@ -83,7 +83,7 @@
 
 
 //        cells = new NativeArray<Cell>(cellCount, Allocator.Persistent);
-//        nonColapsedCells = new List<Cell>(cellCount);
+//        nonCollapsedCells = new List<Cell>(cellCount);
 
 
 //        tileStructs = new NativeArray<TileStruct>(tileCount, Allocator.Persistent);
@@ -195,7 +195,7 @@
 //                    Cell cell = new Cell(cellId, tileOptions, new int3(x, y, z));
 
 //                    cells[cellId] = cell;
-//                    nonColapsedCells.Add(cell);
+//                    nonCollapsedCells.Add(cell);
 //                }
 //            }
 //        }
@@ -715,11 +715,11 @@
 //    private void CollapseCell(Cell currentCell, int finalTileType)
 //    {
 //        //remove cell from nonCollapsedList
-//        for (int i = 0; i < nonColapsedCells.Count; i++)
+//        for (int i = 0; i < nonCollapsedCells.Count; i++)
 //        {
-//            if (nonColapsedCells[i].id == currentCell.id)
+//            if (nonCollapsedCells[i].id == currentCell.id)
 //            {
-//                nonColapsedCells.RemoveAt(i);
+//                nonCollapsedCells.RemoveAt(i);
 //                break;
 //            }
 //        }
@@ -740,12 +740,12 @@
 //    [BurstCompile]
 //    private Cell SelectNewCell()
 //    {
-//        int cellCount = nonColapsedCells.Count;
+//        int cellCount = nonCollapsedCells.Count;
 
 //        //if there is just 1 cell left, select it and return the function
 //        if (cellCount == 1)
 //        {
-//            return cells[nonColapsedCells[0].id];
+//            return cells[nonCollapsedCells[0].id];
 //        }
 
 
@@ -756,7 +756,7 @@
 //        //loop over all cells
 //        for (int i = 0; i < cellCount; i++)
 //        {
-//            Cell targetCell = cells[nonColapsedCells[i].id];
+//            Cell targetCell = cells[nonCollapsedCells[i].id];
 
 //            //if cell is colapsed, skip it
 //            if (targetCell.collapsed)
@@ -783,7 +783,7 @@
 
 //        int r = Random.Range(0, cellsToRandomizeId);
 
-//        return cells[nonColapsedCells[toRandomizeTilePool[r]].id];
+//        return cells[nonCollapsedCells[toRandomizeTilePool[r]].id];
 //    }
 
 

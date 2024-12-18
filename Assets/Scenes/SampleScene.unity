@@ -138,7 +138,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &293420049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,17 +151,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c339bd33af9524bb7a7cdd9d45cb3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generationTiles: {fileID: 11400000, guid: ee3541b80a9bf2245bfe122a90ecb847, type: 2}
+  generationTiles: {fileID: 11400000, guid: 4f359fa757e9ba04ab67544cee487d59, type: 2}
   gridSize:
-    x: 100
+    x: 50
     y: 1
-    z: 100
+    z: 50
   edgeRequiredConnection: 2
   useGPUBasedRendering: 0
   randomColor: 0
   mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
   cellUpdateTimeMs: 1
-  cellUpdateCount: 15
+  cellUpdateCount: 20
 --- !u!4 &293420050
 Transform:
   m_ObjectHideFlags: 0
@@ -193,7 +193,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &360973882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,7 +206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c339bd33af9524bb7a7cdd9d45cb3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generationTiles: {fileID: 11400000, guid: ee3541b80a9bf2245bfe122a90ecb847, type: 2}
+  generationTiles: {fileID: 11400000, guid: 3104cab900d859f468fdbcefa86d8b22, type: 2}
   gridSize:
     x: 50
     y: 1
@@ -216,7 +216,7 @@ MonoBehaviour:
   randomColor: 0
   mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
   cellUpdateTimeMs: 1
-  cellUpdateCount: 12
+  cellUpdateCount: 15
 --- !u!4 &360973883
 Transform:
   m_ObjectHideFlags: 0
@@ -248,7 +248,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &407821593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,7 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c339bd33af9524bb7a7cdd9d45cb3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generationTiles: {fileID: 11400000, guid: fd720297b4c99674b8745389499a0c9d, type: 2}
+  generationTiles: {fileID: 11400000, guid: 3104cab900d859f468fdbcefa86d8b22, type: 2}
   gridSize:
     x: 50
     y: 1
@@ -271,7 +271,7 @@ MonoBehaviour:
   randomColor: 0
   mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
   cellUpdateTimeMs: 1
-  cellUpdateCount: 12
+  cellUpdateCount: 15
 --- !u!4 &407821594
 Transform:
   m_ObjectHideFlags: 0
@@ -489,7 +489,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1654959511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -512,7 +512,7 @@ MonoBehaviour:
   randomColor: 0
   mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
   cellUpdateTimeMs: 1
-  cellUpdateCount: 12
+  cellUpdateCount: 15
 --- !u!4 &1654959512
 Transform:
   m_ObjectHideFlags: 0
@@ -544,7 +544,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1997305993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -557,7 +557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c339bd33af9524bb7a7cdd9d45cb3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generationTiles: {fileID: 11400000, guid: 4f359fa757e9ba04ab67544cee487d59, type: 2}
+  generationTiles: {fileID: 11400000, guid: 3104cab900d859f468fdbcefa86d8b22, type: 2}
   gridSize:
     x: 50
     y: 1
@@ -567,7 +567,7 @@ MonoBehaviour:
   randomColor: 0
   mat: {fileID: 2100000, guid: 6591ef2ba0ce9284388818058ffe3374, type: 2}
   cellUpdateTimeMs: 1
-  cellUpdateCount: 12
+  cellUpdateCount: 15
 --- !u!4 &1997305994
 Transform:
   m_ObjectHideFlags: 0

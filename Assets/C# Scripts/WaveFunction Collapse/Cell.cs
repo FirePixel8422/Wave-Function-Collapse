@@ -5,21 +5,36 @@
 [BurstCompile]
 public struct Cell
 {
-    public int id;
+    /// <summary>
+    /// the cells array index
+    /// </summary>
+    public int gridId;
+
+    /// <summary>
+    /// the nonCollapsedCell list index
+    /// </summary>
+    public int listId;
+
 
     public bool collapsed;
 
 
-    public bool initialized;
     public int tileType;
+    public int tileOptionCount;
 
-    public Cell(int _id, bool _collapsed = false)
+
+    public bool initialized;
+
+    public Cell(int _id, int tileCount, bool _collapsed = false)
     {
-        id = _id;
+        gridId = _id;
+        listId = _id;
 
         collapsed = _collapsed;
 
-        initialized = true;
         tileType = -1;
+        tileOptionCount = tileCount;
+
+        initialized = true;
     }
 }
