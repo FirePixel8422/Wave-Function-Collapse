@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading;
 using System.Threading.Tasks;
 using Unity.Burst;
 using Unity.Collections;
+using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -33,6 +35,7 @@ public class WaveFunction : MonoBehaviour
 
     [SerializeField] private bool useGPUBasedRendering;
     [SerializeField] private bool randomColor;
+
 
 
 
@@ -83,8 +86,22 @@ public class WaveFunction : MonoBehaviour
         int cellCount = gridSize.x * gridSize.y * gridSize.z;
         int tileCount = tilePrefabData.Length;
 
-        CreateEmptyGrid(cellCount, tileCount);
 
+        #region Setup Cell Data Job
+
+        cells = new NativeArray<Cell>(cellCount, Allocator.Persistent);
+        nonCollapsedCells = new NativeList<Cell>(cellCount, Allocator.Persistent);
+
+        SetupCellData_JobParallel setupDataJob = new SetupCellData_JobParallel()
+        {
+            cells = cells,
+            nonCollapsedCells = nonCollapsedCells.AsParallelWriter(),
+            tileCount = tileCount
+        };
+
+        JobHandle mainJobHandle = setupDataJob.Schedule(cellCount, cellCount);
+
+        #endregion
 
 
         gridWorldPos = new float3(transform.position.x, transform.position.y, transform.position.z);
@@ -124,6 +141,10 @@ public class WaveFunction : MonoBehaviour
         NativeArray<int> requiredTileConnections = new NativeArray<int>(6, Allocator.Persistent);
         NativeArray<Cell> neighbours = new NativeArray<Cell>(6, Allocator.Persistent);
 
+
+        //force job completion before starting generation
+        mainJobHandle.Complete();
+
         await WaveFunctionLoop(startCellId, requiredTileConnections, neighbours, toRandomizeTilePool, cellCount, tileCount);
     }
 
@@ -155,7 +176,7 @@ public class WaveFunction : MonoBehaviour
             }
 
             meshes[i] = new Mesh();
-            meshes[i].CombineMeshes(combineInstances, true, true,true);
+            meshes[i].CombineMeshes(combineInstances, true, true, true);
 
             MeshRenderer renderer = tilePrefabData[i].tilePrefab.GetComponentInChildren<MeshRenderer>();
 
@@ -167,37 +188,26 @@ public class WaveFunction : MonoBehaviour
 
 
     [BurstCompile]
-    private void CreateEmptyGrid(int cellCount, int tileCount)
+    private struct SetupCellData_JobParallel : IJobParallelFor
     {
-        cells = new NativeArray<Cell>(cellCount, Allocator.Persistent);
-        nonCollapsedCells = new NativeList<Cell>(cellCount, Allocator.Persistent);
+        [NoAlias][WriteOnly] public NativeArray<Cell> cells;
 
-        //create cells array, linear index based (int3 gridPos to linear)
-        for (int x = 0; x < gridSize.x; x++)
+        [NativeDisableParallelForRestriction]
+        [NoAlias][WriteOnly] public NativeList<Cell>.ParallelWriter nonCollapsedCells;
+
+        [NoAlias][ReadOnly] public int tileCount;
+
+
+        [BurstCompile]
+        public void Execute(int cellId)
         {
-            for (int y = 0; y < gridSize.y; y++)
-            {
-                for (int z = 0; z < gridSize.z; z++)
-                {
-                    //calculate linear cellIndex
-                    int cellId =
-                        x +
-                        y * gridSize.x +
-                        z * gridSize.x * gridSize.y;
+            Cell addedCell = new Cell(cellId, tileCount);
 
-                    Cell cell = new Cell(cellId, tileCount);
-
-                    cells[cellId] = cell;
-                }
-            }
-        }
-
-        //create nonCollapsedCells list, index based
-        for (int i = 0; i < cellCount; i++)
-        {
-            nonCollapsedCells.Add(new Cell(i, tileCount));
+            cells[cellId] = addedCell;
+            nonCollapsedCells.AddNoResize(addedCell);
         }
     }
+
 
 
 
