@@ -15,5 +15,6 @@ public class GenerationTilesSO : ScriptableObject
 public struct WaveTileData
 {
     public WaveTile tilePrefab;
+
     public float weight;
 }

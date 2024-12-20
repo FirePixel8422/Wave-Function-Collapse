@@ -228,6 +228,13 @@ public static class Random
         return random.NextInt(min, max);
     }
 
+    public static uint Range(uint min, uint max)
+    {
+        EnsureInitialized();
+
+        return random.NextUInt(min, max);
+    }
+
     public static float Range(float min, float max)
     {
         EnsureInitialized();

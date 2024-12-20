@@ -22,10 +22,12 @@ public class WaveFunction : MonoBehaviour
     [Header("Tiles used for generation")]
     [SerializeField] private GenerationTilesSO generationTiles;
 
-    private WaveTileData[] tilePrefabData;
-
     [Header("3D size of the Grid to generate in")]
     [SerializeField] private int3 gridSize;
+
+    [SerializeField] private uint seed;
+    [SerializeField] private bool randomSeed;
+
 
     [SerializeField] private int edgeRequiredConnection;
 
@@ -34,22 +36,32 @@ public class WaveFunction : MonoBehaviour
 
 
 
+
+    //copy of tiles from scriptable object "generationTiles"
+    private WaveTileData[] tilePrefabData;
+
+    //every cell in the grid
     private NativeArray<Cell> cells;
+
+    //every non collapsed cell in the grid
     private NativeList<Cell> nonCollapsedCells;
 
-    private NativeArray<int> cellTileOptions;
+    //calculation array for a tiles connectionsTypes
     private NativeArray<int> tileStructConnectors;
 
     //Native structure based copy of generationTiles.tilePrefabs data, so burst can go brrr
     private NativeArray<TileStruct> tileStructs;
 
+    //3d world Transform pos of this gameobject
     private float3 gridWorldPos;
 
 
 
 
     //DEBUG
+    //[SerializeField]
     private Cell[] DEBUG_cells;
+    //[SerializeField]
     private Cell[] DEBUG_nonCollapsedCells;
 
 
@@ -57,36 +69,28 @@ public class WaveFunction : MonoBehaviour
     [BurstCompile]
     private async void Start()
     {
-        tilePrefabData = generationTiles.waveTileData;
-
         sw = Stopwatch.StartNew();
 
-        //calculate total amount of cells in the 3D grid
-        int cellCount = gridSize.x * gridSize.y * gridSize.z;
+        if (randomSeed)
+        {
+            seed = Random.Range(1, uint.MaxValue);
+        }
+        Random.ReSeed(seed);
 
-        //get total amount of tiles
+
+        tilePrefabData = generationTiles.waveTileData;
+
+        int cellCount = gridSize.x * gridSize.y * gridSize.z;
         int tileCount = tilePrefabData.Length;
+
+        CreateEmptyGrid(cellCount, tileCount);
+
+
 
         gridWorldPos = new float3(transform.position.x, transform.position.y, transform.position.z);
 
-        int3 randomGridPos = Random.Range(int3.zero, gridSize);
-        int startCellId = GridPosToLinearIndex(randomGridPos);
-
 
         SetupGPURenderMeshData(tileCount, cellCount);
-
-
-        cells = new NativeArray<Cell>(cellCount, Allocator.Persistent);
-        nonCollapsedCells = new NativeList<Cell>(cellCount, Allocator.Persistent);
-
-        //works as 2d array, every cell gets tileCount + 1 amount of this array, the +1 is for the tileOptionsCount of every cell
-        cellTileOptions = new NativeArray<int>(cellCount * (tileCount + 1), Allocator.Persistent);
-        for (int i = 0; i < cellCount; i++)
-        {
-            //set every tileOptionsCount equal to the amount of tiles
-            cellTileOptions[i * (tileCount + 1) + tileCount] = tileCount;
-        }
-
 
 
         //setup tileStrycts Array
@@ -110,6 +114,8 @@ public class WaveFunction : MonoBehaviour
 
 
 
+        int3 randomGridPos = Random.Range(int3.zero, gridSize);
+        int startCellId = GridPosToLinearIndex(randomGridPos);
 
         //gets used for randomizing cell selection and tile selection, capicity is whatever are more of, cells or tileTypes
         NativeArray<int> toRandomizeTilePool = new NativeArray<int>(math.max(tileCount, cellCount), Allocator.Persistent);
@@ -118,44 +124,7 @@ public class WaveFunction : MonoBehaviour
         NativeArray<int> requiredTileConnections = new NativeArray<int>(6, Allocator.Persistent);
         NativeArray<Cell> neighbours = new NativeArray<Cell>(6, Allocator.Persistent);
 
-        //create the grid
-        CreateGrid(cellCount, tileCount);
-
         await WaveFunctionLoop(startCellId, requiredTileConnections, neighbours, toRandomizeTilePool, cellCount, tileCount);
-    }
-
-
-    [BurstCompile]
-    private void CalculateRandomGridCellIndexs(ref NativeArray<int> startCellGridIndexs, int randomStartCellCount, int cellCount)
-    {
-        NativeList<int> gridPositionIndexList = new NativeList<int>(cellCount, Allocator.Temp);
-
-        for (int x = 0; x < gridSize.x; x++)
-        {
-            for (int y = 0; y < gridSize.y; y++)
-            {
-                for (int z = 0; z < gridSize.z; z++)
-                {
-                    //calculate linear cellIndex
-                    int cellId = GridPosToLinearIndex(new int3(x, y, z));
-
-                    gridPositionIndexList.Add(cellId);
-                }
-            }
-        }
-
-
-        int r;
-        for (int i = 0; i < randomStartCellCount; i++)
-        {
-            r = Random.Range(0, gridPositionIndexList.Length);
-
-            startCellGridIndexs[i] = gridPositionIndexList[r];
-
-            gridPositionIndexList.RemoveAtSwapBack(r);
-        }
-
-        gridPositionIndexList.Dispose();
     }
 
 
@@ -166,6 +135,7 @@ public class WaveFunction : MonoBehaviour
 
         matrixData = new NativeArray<Matrix4x4>(cellCount, Allocator.Persistent);
         meshes = new Mesh[tileCount];
+        materials = new Material[tileCount];
 
         for (int i = 0; i < tileCount; i++)
         {
@@ -178,11 +148,18 @@ public class WaveFunction : MonoBehaviour
             for (int meshId = 0; meshId < meshFilters.Length; meshId++)
             {
                 combineInstances[meshId].mesh = meshFilters[meshId].sharedMesh;
-                combineInstances[meshId].transform = meshFilters[meshId].transform.localToWorldMatrix;
+
+                Matrix4x4 meshMatrix = meshFilters[meshId].transform.localToWorldMatrix;
+
+                combineInstances[meshId].transform = meshMatrix;
             }
 
             meshes[i] = new Mesh();
-            meshes[i].CombineMeshes(combineInstances);
+            meshes[i].CombineMeshes(combineInstances, true, true,true);
+
+            MeshRenderer renderer = tilePrefabData[i].tilePrefab.GetComponentInChildren<MeshRenderer>();
+
+            materials[i] = renderer == null ? new Material(Shader.Find("Standard")) : renderer.sharedMaterial;
         }
 
         meshData = _meshDrawData;
@@ -190,13 +167,10 @@ public class WaveFunction : MonoBehaviour
 
 
     [BurstCompile]
-    private void CreateGrid(int cellCount, int tileCount)
+    private void CreateEmptyGrid(int cellCount, int tileCount)
     {
-        NativeArray<int> tileOptions = new NativeArray<int>(tileCount, Allocator.Persistent);
-        for (int i = 0; i < tileCount; i++)
-        {
-            tileOptions[i] = i;
-        }
+        cells = new NativeArray<Cell>(cellCount, Allocator.Persistent);
+        nonCollapsedCells = new NativeList<Cell>(cellCount, Allocator.Persistent);
 
         //create cells array, linear index based (int3 gridPos to linear)
         for (int x = 0; x < gridSize.x; x++)
@@ -223,16 +197,14 @@ public class WaveFunction : MonoBehaviour
         {
             nonCollapsedCells.Add(new Cell(i, tileCount));
         }
-
-        DEBUG_cells = cells.ToArray();
     }
 
 
 
-    #region GPU BASED RENDERING
+    #region GPU BASED RENDERING DATA
 
     private Mesh[] meshes;
-    public Material mat;
+    private Material[] materials;
 
     private NativeArray<MeshDrawData> meshData;
     private NativeArray<Matrix4x4> matrixData;
@@ -269,9 +241,13 @@ public class WaveFunction : MonoBehaviour
         }
     }
 
+    #endregion
 
     private void Update()
     {
+        //DEBUG_cells = cells.ToArray();
+        //DEBUG_nonCollapsedCells = nonCollapsedCells.AsArray().ToArray();
+
         if (useGPUBasedRendering == false)
         {
             return;
@@ -299,7 +275,7 @@ public class WaveFunction : MonoBehaviour
             }
 
             // Create RenderParams
-            RenderParams renderParams = new RenderParams(mat)
+            RenderParams renderParams = new RenderParams(materials[i])
             {
                 worldBounds = new Bounds(Vector3.zero, Vector3.one * 100),
             };
@@ -311,8 +287,6 @@ public class WaveFunction : MonoBehaviour
             meshMatrices.Dispose();
         }
     }
-
-    #endregion
 
 
 
@@ -340,7 +314,7 @@ public class WaveFunction : MonoBehaviour
             }
 
             //spawn tile
-            GenerateCurrentCellTile_OLD(currentCell, requiredTileConnections, neighbours, toRandomizeTilePool, tileCount, cellCount);
+            GenerateCurrentCellTile(currentCell, requiredTileConnections, neighbours, toRandomizeTilePool, tileCount, cellCount);
 
             //if all cells have been spawned, end loop
             if (i == 0)
@@ -353,7 +327,7 @@ public class WaveFunction : MonoBehaviour
 
 
             //select new tile
-            currentCell = SelectNewCell(toRandomizeTilePool, tileCount, cellCount);
+            currentCell = SelectNewCell(toRandomizeTilePool, cellCount);
 
 
 
@@ -373,7 +347,7 @@ public class WaveFunction : MonoBehaviour
 
         cells.Dispose();
         nonCollapsedCells.Dispose();
-        cellTileOptions.Dispose();
+        //cellTileOptions.Dispose();
         tileStructs.Dispose();
 
         print("Took: " + sw.ElapsedMilliseconds + " ms");
@@ -382,112 +356,10 @@ public class WaveFunction : MonoBehaviour
 
 
 
-    /* GenerateCurrentCellTile
     [BurstCompile]
-    private void GenerateCurrentCellTile(Cell currentCell, NativeArray<int> requiredTileConnections, NativeArray<Cell> neighbours, int tileCount, int nonCollapsedCellCount)
+    private void GenerateCurrentCellTile(Cell currentCell, NativeArray<int> requiredTileConnections, NativeArray<Cell> neighbours, NativeArray<int> toRandomizeTilePool, int tileCount, int nonCollapsedCellCount)
     {
-        currentCell = cells[currentCell.gridId];
-
-        //where in the tileOptionArray lies the data of this cell (cell.id * (amount of tileOptions + 1))
-        int cellTileOptionArrayIndex = currentCell.gridId * (tileCount + 1);
-
-
-        //cellTileOptionArrayIndex + tileCount stores the amount of tileOptions int
-        int toRandomizeIndex = cellTileOptions[cellTileOptionArrayIndex + tileCount];
-
-        float maxChanceValue = 0;
-        for (int i = 0; i < toRandomizeIndex; i++)
-        {
-            maxChanceValue += tileStructs[cellTileOptions[cellTileOptionArrayIndex]].weight;
-        }
-
-        float rChanceValue = Random.Range(0, maxChanceValue);
-        float tileWeight;
-
-
-        int r = -1;
-
-        for (int i = 0; i < toRandomizeIndex; i++)
-        {
-            tileWeight = tileStructs[cellTileOptions[cellTileOptionArrayIndex + i]].weight;
-
-            if (rChanceValue <= tileWeight)
-            {
-                r = i;
-                break;
-            }
-            else
-            {
-                rChanceValue -= tileWeight;
-            }
-        }
-
-        int finalTileType = cellTileOptions[cellTileOptionArrayIndex + r];
-
-        //collapse current cell
-        CollapseCell(currentCell, finalTileType, nonCollapsedCellCount);
-
-
-        int[] DEBUG_connecotrs = new int[6];
-
-
-        GetNeighbourCells(currentCell.gridId, ref neighbours);
-        for (int i = 0; i < neighbours.Length; i++)
-        {
-            if (neighbours[i].collapsed)
-            {
-                DEBUG_connecotrs[i] = tileStructConnectors[neighbours[i].tileType * 6 + InvertDirection(i)];
-            }
-
-            //skip non existent or already collapsed neighbours
-            if (neighbours[i].collapsed || neighbours[i].initialized == false)
-            {
-                continue;
-            }
-
-            UpdateCell(neighbours[i], requiredTileConnections, neighbours, tileCount);
-        }
-
-
-        //get gridPos
-        int3 gridPos = LinearIndexToGridPos(currentCell.gridId);
-
-        //spawn tile
-        WaveTile spawnedObj = Instantiate(tilePrefabData[finalTileType].tilePrefab, new Vector3(gridPos.x - gridSize.x * 0.5f + 0.5f, gridPos.y - gridSize.y * 0.5f + 0.5f, gridPos.z - gridSize.z * 0.5f + 0.5f), tilePrefabData[finalTileType].tilePrefab.transform.rotation);
-
-        spawnedObj.DEBUG_connectors = DEBUG_connecotrs;
-
-        //cellTileOptionArrayIndex + tileCount stores the amount of tileOptions int
-        int tileOptionsCount = cellTileOptions[cellTileOptionArrayIndex + tileCount];
-
-        spawnedObj.DEBUG_tileOptions = new GameObject[tileOptionsCount];
-
-        for (int i = 0; i < tileOptionsCount; i++)
-        {
-            spawnedObj.DEBUG_tileOptions[i] = tilePrefabData[cellTileOptions[cellTileOptionArrayIndex + i]].tilePrefab.gameObject;
-        }
-
-
-        if (randomColor)
-        {
-            Color color = Random.RandomColor();
-            foreach (Renderer ren in spawnedObj.GetComponentsInChildren<Renderer>(true))
-            {
-                ren.material.color = color;
-            }
-        }
-    }
-    */
-
-
-
-    [BurstCompile]
-    private void GenerateCurrentCellTile_OLD(Cell currentCell, NativeArray<int> requiredTileConnections, NativeArray<Cell> neighbours, NativeArray<int> toRandomizeTilePool, int tileCount, int nonCollapsedCellCount)
-    {
-        //where in the tileOptionArray lies the data of this cell (cell.id * (amount of tileOptions + 1))
-        int cellTileOptionArrayIndex = currentCell.gridId * (tileCount + 1);
-
-        CalculateRequiredTileConnections_OLD(currentCell, neighbours, ref requiredTileConnections);
+        CalculateRequiredTileConnections(currentCell, neighbours, ref requiredTileConnections);
 
 
         #region Check which tiles are an option to generate
@@ -525,6 +397,7 @@ public class WaveFunction : MonoBehaviour
         #endregion
 
 
+        #region Generate random int for selecting a random tile from the possible options
 
         float maxChanceValue = 0;
         for (int i = 0; i < toRandomizeIndex; i++)
@@ -558,6 +431,9 @@ public class WaveFunction : MonoBehaviour
             r = 0;
         }
 
+        #endregion
+
+
         int finalTileType = toRandomizeTilePool[r];
 
         //collapse current cell
@@ -585,7 +461,7 @@ public class WaveFunction : MonoBehaviour
         }
 
 
-        #region Instantiate Or Add To GPU Render list
+        #region Instantiate Or Add To GPU Render List
 
         //get gridPos
         int3 gridPos = LinearIndexToGridPos(currentCell.gridId);
@@ -596,19 +472,17 @@ public class WaveFunction : MonoBehaviour
                 gridWorldPos.x + gridPos.x - gridSize.x * 0.5f + 0.5f,
                 gridWorldPos.y + gridPos.y - gridSize.y * 0.5f,
                 gridWorldPos.z + gridPos.z - gridSize.z * 0.5f + 0.5f);
-            Quaternion rot = tilePrefabData[finalTileType].tilePrefab.transform.rotation;
 
-            AddMeshData(finalTileType, Matrix4x4.TRS(pos, rot, Vector3.one));
+            AddMeshData(finalTileType, Matrix4x4.TRS(pos, Quaternion.identity, Vector3.one));
         }
         else
         {
-            //spawn tile
-            WaveTile spawnedObj = Instantiate(tilePrefabData[finalTileType].tilePrefab,
-                new Vector3(
+            Vector3 pos = new Vector3(
                 gridWorldPos.x + gridPos.x - gridSize.x * 0.5f + 0.5f,
                 gridWorldPos.y + gridPos.y - gridSize.y * 0.5f,
-                gridWorldPos.z + gridPos.z - gridSize.z * 0.5f + 0.5f),
-                tilePrefabData[finalTileType].tilePrefab.transform.rotation);
+                gridWorldPos.z + gridPos.z - gridSize.z * 0.5f + 0.5f);
+
+            WaveTile spawnedObj = Instantiate(tilePrefabData[finalTileType].tilePrefab, pos, Quaternion.identity);
 
             if (randomColor)
             {
@@ -622,23 +496,21 @@ public class WaveFunction : MonoBehaviour
             spawnedObj.DEBUG_connectors = DEBUG_connecotrs;
 
             //cellTileOptionArrayIndex + tileCount stores the amount of tileOptions int
-            int tileOptionsCount = cellTileOptions[cellTileOptionArrayIndex + tileCount];
+            //int tileOptionsCount = cellTileOptions[cellTileOptionArrayIndex + tileCount];
 
-            spawnedObj.DEBUG_tileOptions = new GameObject[tileOptionsCount];
-            for (int i = 0; i < tileOptionsCount; i++)
-            {
-                spawnedObj.DEBUG_tileOptions[i] = tilePrefabData[cellTileOptions[cellTileOptionArrayIndex + i]].tilePrefab.gameObject;
-            }
+            //spawnedObj.DEBUG_tileOptions = new GameObject[tileOptionsCount];
+            //for (int i = 0; i < tileOptionsCount; i++)
+            //{
+            //    spawnedObj.DEBUG_tileOptions[i] = tilePrefabData[cellTileOptions[cellTileOptionArrayIndex + i]].tilePrefab.gameObject;
+            //}
         }
 
         #endregion
     }
 
 
-    
-
     [BurstCompile]
-    private void CalculateRequiredTileConnections_OLD(Cell currentCell, NativeArray<Cell> neighbours, ref NativeArray<int> requiredTileConnections)
+    private void CalculateRequiredTileConnections(Cell currentCell, NativeArray<Cell> neighbours, ref NativeArray<int> requiredTileConnections)
     {
         GetNeighbourCells(currentCell.gridId, ref neighbours);
 
@@ -670,15 +542,13 @@ public class WaveFunction : MonoBehaviour
 
 
 
+
     [BurstCompile]
     private void UpdateCell(Cell currentCell, NativeArray<int> requiredTileConnections, NativeArray<Cell> neighbours, int tileCount)
     {
         GetRequiredTileConnections(currentCell, neighbours, ref requiredTileConnections);
 
-        //where in the tileOptionArray lies the data of this cell (cell.id * (amount of tileOptions + 1))
-        int cellTileOptionArrayIndex = currentCell.gridId * (tileCount + 1);
-
-        int toRandomizeIndex = 0;
+        int tileOptionCount = 0;
 
         for (int tileId = 0; tileId < tileCount; tileId++)
         {
@@ -703,19 +573,22 @@ public class WaveFunction : MonoBehaviour
 
 
 
-            //all directions of currentTile are valid, add tileId to toRandomizeTilePool
+            //all directions of currentTile are valid, increment tileOptionsCount
             if (isTileCompatible)
             {
-                //Debug.Log($"Tile {tileId} is compatible.");
-                cellTileOptions[cellTileOptionArrayIndex + toRandomizeIndex++] = tileId;
+                tileOptionCount += 1;
             }
         }
 
-        //cellTileOptionArrayIndex + tileCount + 1 stores the amount of tileOptions int
-        cellTileOptions[cellTileOptionArrayIndex + tileCount] = toRandomizeIndex;
+
+        //get currnetCell copy
+        Cell updatedCell = nonCollapsedCells[currentCell.listId];
+
+        //modify copy
+        updatedCell.tileOptionCount = tileOptionCount;
 
         //update cell back
-        cells[currentCell.gridId] = currentCell;
+        nonCollapsedCells[currentCell.listId] = updatedCell;
     }
 
 
@@ -782,12 +655,12 @@ public class WaveFunction : MonoBehaviour
 
 
     [BurstCompile]
-    private Cell SelectNewCell(NativeArray<int> toRandomizeTilePool, int tileCount, int nonCollapsedCellCount)
+    private Cell SelectNewCell(NativeArray<int> toRandomizeTilePool, int nonCollapsedCellCount)
     {
         //if there is just 1 cell left, select it and return the function
         if (nonCollapsedCellCount == 1)
         {
-            return cells[nonCollapsedCells[0].gridId];
+            return nonCollapsedCells[0];
         }
 
 
@@ -795,17 +668,13 @@ public class WaveFunction : MonoBehaviour
         int leastOptions = int.MaxValue;
         int cellsToRandomizeId = 0;
 
+        //pre create data for use in loop
+        int tileOptionsCount;
+
         //loop over all cells
         for (int i = 0; i < nonCollapsedCellCount; i++)
         {
-            Cell targetCell = nonCollapsedCells[i];
-
-
-            //where in the tileOptionArray lies the data of this cell (cell.id * (amount of tileOptions + 1))
-            int cellTileOptionArrayIndex = targetCell.gridId * (tileCount + 1);
-
-            //cellTileOptionArrayIndex + tileCount stores the amount of tileOptions int
-            int tileOptionsCount = cellTileOptions[cellTileOptionArrayIndex + tileCount];
+            tileOptionsCount = nonCollapsedCells[i].tileOptionCount;
 
 
             //if cell specifically has less options
@@ -947,5 +816,13 @@ public class WaveFunction : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position, new Vector3(gridSize.x, gridSize.y, gridSize.z));
+    }
+
+    private void OnValidate()
+    {
+        if (seed == 0)
+        {
+            seed = 1;
+        }
     }
 }

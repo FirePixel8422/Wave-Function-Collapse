@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   connectors: 030000000300000002000000020000000300000003000000
+  GPURenderMaterial: {fileID: 2100000, guid: 69f04f440d9013244b98d6f6fd0a017e, type: 2}
   reset: 0
   areYouSureReset: 0
   DEBUG_connectors: 
