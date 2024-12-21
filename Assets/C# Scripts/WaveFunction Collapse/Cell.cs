@@ -37,4 +37,9 @@ public struct Cell
 
         initialized = true;
     }
+
+    public static Cell Uninitialized()
+    {
+        return new Cell();
+    }
 }

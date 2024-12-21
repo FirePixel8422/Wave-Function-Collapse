@@ -27,10 +27,13 @@ public class WaveFunction : MonoBehaviour
     [Header("3D size of the Grid to generate in")]
     [SerializeField] private int3 gridSize;
 
+    [SerializeField] private int3 splittedChunkSize;
+
+
     [SerializeField] private uint seed;
     [SerializeField] private bool randomSeed;
 
-
+    [Header("what tile connection bitId are gridEdges")]
     [SerializeField] private int edgeRequiredConnection;
 
     [SerializeField] private bool useGPUBasedRendering;
@@ -54,9 +57,6 @@ public class WaveFunction : MonoBehaviour
 
     //Native structure based copy of generationTiles.tilePrefabs data, so burst can go brrr
     private NativeArray<TileStruct> tileStructs;
-
-    //3d world Transform pos of this gameobject
-    private float3 gridWorldPos;
 
 
 
@@ -83,8 +83,11 @@ public class WaveFunction : MonoBehaviour
 
         tilePrefabData = generationTiles.waveTileData;
 
-        int cellCount = gridSize.x * gridSize.y * gridSize.z;
+        int cellCount = gridSize.x / splittedChunkSize.x * gridSize.y / splittedChunkSize.y * gridSize.z / splittedChunkSize.z;
         int tileCount = tilePrefabData.Length;
+
+        float3 gridWorldPos = new float3(transform.position.x, transform.position.y, transform.position.z);
+
 
 
         #region Setup Cell Data Job
@@ -102,9 +105,6 @@ public class WaveFunction : MonoBehaviour
         JobHandle mainJobHandle = setupDataJob.Schedule(cellCount, cellCount);
 
         #endregion
-
-
-        gridWorldPos = new float3(transform.position.x, transform.position.y, transform.position.z);
 
 
         SetupGPURenderMeshData(tileCount, cellCount);
@@ -145,47 +145,11 @@ public class WaveFunction : MonoBehaviour
         //force job completion before starting generation
         mainJobHandle.Complete();
 
-        await WaveFunctionLoop(startCellId, requiredTileConnections, neighbours, toRandomizeTilePool, cellCount, tileCount);
+        await WaveFunctionLoop(startCellId, requiredTileConnections, neighbours, toRandomizeTilePool, cellCount, tileCount, gridWorldPos);
+
+        //debug
+        print("Took: " + sw.ElapsedMilliseconds + " ms");
     }
-
-
-    [BurstCompile]
-    private void SetupGPURenderMeshData(int tileCount, int cellCount)
-    {
-        NativeArray<MeshDrawData> _meshDrawData = new NativeArray<MeshDrawData>(tileCount, Allocator.Persistent);
-
-        matrixData = new NativeArray<Matrix4x4>(cellCount, Allocator.Persistent);
-        meshes = new Mesh[tileCount];
-        materials = new Material[tileCount];
-
-        for (int i = 0; i < tileCount; i++)
-        {
-            _meshDrawData[i] = new MeshDrawData(i, cellCount);
-
-            MeshFilter[] meshFilters = tilePrefabData[i].tilePrefab.GetComponentsInChildren<MeshFilter>(true);
-
-            CombineInstance[] combineInstances = new CombineInstance[meshFilters.Length];
-
-            for (int meshId = 0; meshId < meshFilters.Length; meshId++)
-            {
-                combineInstances[meshId].mesh = meshFilters[meshId].sharedMesh;
-
-                Matrix4x4 meshMatrix = meshFilters[meshId].transform.localToWorldMatrix;
-
-                combineInstances[meshId].transform = meshMatrix;
-            }
-
-            meshes[i] = new Mesh();
-            meshes[i].CombineMeshes(combineInstances, true, true, true);
-
-            MeshRenderer renderer = tilePrefabData[i].tilePrefab.GetComponentInChildren<MeshRenderer>();
-
-            materials[i] = renderer == null ? new Material(Shader.Find("Standard")) : renderer.sharedMaterial;
-        }
-
-        meshData = _meshDrawData;
-    }
-
 
     [BurstCompile]
     private struct SetupCellData_JobParallel : IJobParallelFor
@@ -209,22 +173,77 @@ public class WaveFunction : MonoBehaviour
     }
 
 
+    [BurstCompile]
+    private void SetupGPURenderMeshData(int tileCount, int cellCount)
+    {
+        meshData = new NativeArray<MeshDrawData>(tileCount, Allocator.Persistent);
+
+        meshes = new Mesh[tileCount];
+
+        matrixData = new NativeArray<Matrix4x4>(cellCount, Allocator.Persistent);
+        meshMatrices = new NativeArray<Matrix4x4>(cellCount, Allocator.Persistent);
+
+        renderParams = new RenderParams[tileCount];
+
+        for (int i = 0; i < tileCount; i++)
+        {
+            meshData[i] = new MeshDrawData(cellCount);
+
+            MeshFilter[] meshFilters = tilePrefabData[i].tilePrefab.GetComponentsInChildren<MeshFilter>(true);
+
+            CombineInstance[] combineInstances = new CombineInstance[meshFilters.Length];
+
+            for (int meshId = 0; meshId < meshFilters.Length; meshId++)
+            {
+                combineInstances[meshId].mesh = meshFilters[meshId].sharedMesh;
+
+                Matrix4x4 meshMatrix = meshFilters[meshId].transform.localToWorldMatrix;
+
+                combineInstances[meshId].transform = meshMatrix;
+            }
+
+            meshes[i] = new Mesh();
+            meshes[i].CombineMeshes(combineInstances, true, true, true);
+
+            MeshRenderer renderer = tilePrefabData[i].tilePrefab.GetComponentInChildren<MeshRenderer>();
+
+            //save material to renderParams
+            renderParams[i] = new RenderParams()
+            {
+                material = renderer == null ? new Material(Shader.Find("Standard")) : renderer.sharedMaterial,
+
+                shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.On,
+                receiveShadows = true,
+
+                motionVectorMode = MotionVectorGenerationMode.ForceNoMotion,
+
+                worldBounds = new Bounds(Vector3.zero, Vector3.one * 100),
+            };
+        }
+    }
+
+
 
 
     #region GPU BASED RENDERING DATA
 
     private Mesh[] meshes;
-    private Material[] materials;
+
+    //stores material
+    private RenderParams[] renderParams;
 
     private NativeArray<MeshDrawData> meshData;
+
     private NativeArray<Matrix4x4> matrixData;
     private int matrixId;
+
+    private NativeArray<Matrix4x4> meshMatrices;
 
     public void AddMeshData(int meshId, Matrix4x4 matrix)
     {
         matrixData[matrixId] = matrix;
 
-        meshData[meshId].AddMatrix(matrixId);
+        meshData[meshId].AddMatrixId(matrixId);
 
         matrixId += 1;
     }
@@ -233,68 +252,59 @@ public class WaveFunction : MonoBehaviour
     [System.Serializable]
     public struct MeshDrawData
     {
-        public NativeList<int> matrixIds;
+        //last id is the total added matrixCount
+        public NativeArray<int> matrixIds;
+        private readonly int matrixCountId;
 
-        public int meshIndex;
+        public readonly int MatrixCount => matrixIds[matrixCountId];
 
 
-        public MeshDrawData(int _meshIndex, int _matrixCount)
+        public MeshDrawData(int _matrixCount)
         {
-            meshIndex = _meshIndex;
-
-            matrixIds = new NativeList<int>(_matrixCount, Allocator.Persistent);
+            matrixIds = new NativeArray<int>(_matrixCount + 1, Allocator.Persistent);
+            matrixCountId = _matrixCount;
         }
 
-        public void AddMatrix(int matrixId)
+        public void AddMatrixId(int matrixId)
         {
-            matrixIds.AddNoResize(matrixId);
+            int cMatrixId = matrixIds[matrixCountId]++;
+
+            matrixIds[cMatrixId] = matrixId;
         }
     }
 
     #endregion
 
+   
+
+
     private void Update()
     {
-        //DEBUG_cells = cells.ToArray();
-        //DEBUG_nonCollapsedCells = nonCollapsedCells.AsArray().ToArray();
-
         if (useGPUBasedRendering == false)
         {
             return;
         }
 
 
-        for (int i = 0; i < meshData.Length; i++)
+        for (int meshIndex = 0; meshIndex < meshData.Length; meshIndex++)
         {
-            MeshDrawData cMeshDrawData = meshData[i];
+            MeshDrawData cMeshDrawData = meshData[meshIndex];
 
-            int matrixCount = cMeshDrawData.matrixIds.Length;
+            int matrixCount = cMeshDrawData.MatrixCount;
 
             if (matrixCount == 0)
             {
                 continue;
             }
 
-            // Prepare a NativeArray of matrices for this mesh
-            NativeArray<Matrix4x4> meshMatrices = new NativeArray<Matrix4x4>(matrixCount, Allocator.Temp);
-
             // Copy the relevant matrices into the temporary array
-            for (int j = 0; j < matrixCount; j++)
+            for (int i2 = 0; i2 < matrixCount; i2++)
             {
-                meshMatrices[j] = matrixData[cMeshDrawData.matrixIds[j]];
+                meshMatrices[i2] = matrixData[cMeshDrawData.matrixIds[i2]];
             }
 
-            // Create RenderParams
-            RenderParams renderParams = new RenderParams(materials[i])
-            {
-                worldBounds = new Bounds(Vector3.zero, Vector3.one * 100),
-            };
-
             // Render the instances
-            Graphics.RenderMeshInstanced(renderParams, meshes[cMeshDrawData.meshIndex], 0, meshMatrices);
-
-            // Dispose of the temporary NativeArray
-            meshMatrices.Dispose();
+            Graphics.RenderMeshInstanced(renderParams[meshIndex], meshes[meshIndex], 0, meshMatrices, matrixCount);
         }
     }
 
@@ -306,7 +316,7 @@ public class WaveFunction : MonoBehaviour
     public Stopwatch sw;
 
     [BurstCompile]
-    private async Task WaveFunctionLoop(int startCellId, NativeArray<int> requiredTileConnections, NativeArray<Cell> neighbours, NativeArray<int> toRandomizeTilePool, int cellCount, int tileCount)
+    private async Task WaveFunctionLoop(int startCellId, NativeArray<int> requiredTileConnections, NativeArray<Cell> neighbours, NativeArray<int> toRandomizeTilePool, int cellCount, int tileCount, float3 gridWorldPos)
     {
         int loopsLeftBeforeTaskDelay = cellUpdateCount;
 
@@ -324,7 +334,7 @@ public class WaveFunction : MonoBehaviour
             }
 
             //spawn tile
-            GenerateCurrentCellTile(currentCell, requiredTileConnections, neighbours, toRandomizeTilePool, tileCount, cellCount);
+            GenerateCurrentCellTile(currentCell, requiredTileConnections, neighbours, toRandomizeTilePool, tileCount, cellCount, gridWorldPos);
 
             //if all cells have been spawned, end loop
             if (i == 0)
@@ -357,17 +367,14 @@ public class WaveFunction : MonoBehaviour
 
         cells.Dispose();
         nonCollapsedCells.Dispose();
-        //cellTileOptions.Dispose();
         tileStructs.Dispose();
-
-        print("Took: " + sw.ElapsedMilliseconds + " ms");
     }
 
 
 
 
     [BurstCompile]
-    private void GenerateCurrentCellTile(Cell currentCell, NativeArray<int> requiredTileConnections, NativeArray<Cell> neighbours, NativeArray<int> toRandomizeTilePool, int tileCount, int nonCollapsedCellCount)
+    private void GenerateCurrentCellTile(Cell currentCell, NativeArray<int> requiredTileConnections, NativeArray<Cell> neighbours, NativeArray<int> toRandomizeTilePool, int tileCount, int nonCollapsedCellCount, float3 gridWorldPos)
     {
         CalculateRequiredTileConnections(currentCell, neighbours, ref requiredTileConnections);
 
@@ -450,16 +457,16 @@ public class WaveFunction : MonoBehaviour
         CollapseCell(currentCell, finalTileType, nonCollapsedCellCount);
 
 
-        int[] DEBUG_connecotrs = new int[6];
+        //int[] DEBUG_connecotrs = new int[6];
 
         GetNeighbourCells(currentCell.gridId, ref neighbours);
 
         for (int i = 0; i < neighbours.Length; i++)
         {
-            if (neighbours[i].collapsed)
-            {
-                DEBUG_connecotrs[i] = tileStructConnectors[neighbours[i].tileType * 6 + InvertDirection(i)];
-            }
+            //if (neighbours[i].collapsed)
+            //{
+            //    DEBUG_connecotrs[i] = tileStructConnectors[neighbours[i].tileType * 6 + InvertDirection(i)];
+            //}
 
             //skip non existent or already collapsed neighbours
             if (neighbours[i].collapsed || neighbours[i].initialized == false)
@@ -497,13 +504,13 @@ public class WaveFunction : MonoBehaviour
             if (randomColor)
             {
                 Color color = Random.RandomColor();
-                foreach (Renderer ren in spawnedObj.GetComponentsInChildren<Renderer>(true))
+                foreach (Renderer renderer in spawnedObj.GetComponentsInChildren<Renderer>(true))
                 {
-                    ren.material.color = color;
+                    renderer.material.color = color;
                 }
             }
 
-            spawnedObj.DEBUG_connectors = DEBUG_connecotrs;
+            //spawnedObj.DEBUG_connectors = DEBUG_connecotrs;
 
             //cellTileOptionArrayIndex + tileCount stores the amount of tileOptions int
             //int tileOptionsCount = cellTileOptions[cellTileOptionArrayIndex + tileCount];
@@ -567,8 +574,8 @@ public class WaveFunction : MonoBehaviour
             //check if all sides of the current to Check tile match with the neigbours
             for (int connectorId = 0; connectorId < 6; connectorId++)
             {
-                int toCheckTileConnection = tileStructConnectors[tileId * 6 + InvertDirection(connectorId)];
-                int requiredConnection = requiredTileConnections[InvertDirection(connectorId)];
+                int toCheckTileConnection = tileStructConnectors[tileId * 6 + connectorId];
+                int requiredConnection = requiredTileConnections[connectorId];
 
 
                 //bitwise check operation
@@ -722,41 +729,62 @@ public class WaveFunction : MonoBehaviour
         }
 
 
-        #region Check and add neighbors in all directions
+        #region Check and add / mark unintialized neighbors in all directions
 
         if (gridPos.x > 0) // Left
         {
-            int leftId = cellId - 1;
-            neighbourCells[0] = cells[leftId];
+            neighbourCells[0] = cells[cellId - 1];
         }
+        else
+        {
+            neighbourCells[0] = Cell.Uninitialized();
+        }
+
         if (gridPos.x < gridSize.x - 1) // Right
         {
-            int rightId = cellId + 1;
-            neighbourCells[1] = cells[rightId];
+            neighbourCells[1] = cells[cellId + 1];
+        }
+        else
+        {
+            neighbourCells[1] = Cell.Uninitialized();
         }
 
 
         if (gridPos.y < gridSize.y - 1) // Up
         {
-            int upId = cellId + gridSize.x;
-            neighbourCells[2] = cells[upId];
+            neighbourCells[2] = cells[cellId + gridSize.x];
         }
+        else
+        {
+            neighbourCells[2] = Cell.Uninitialized();
+        }
+
         if (gridPos.y > 0) // Down
         {
-            int downId = cellId - gridSize.x;
-            neighbourCells[3] = cells[downId];
+            neighbourCells[3] = cells[cellId - gridSize.x];
+        }
+        else
+        {
+            neighbourCells[3] = Cell.Uninitialized();
         }
 
 
         if (gridPos.z < gridSize.z - 1) // Front
         {
-            int frontId = cellId + gridSize.x * gridSize.y;
-            neighbourCells[4] = cells[frontId];
+            neighbourCells[4] = cells[cellId + gridSize.x * gridSize.y];
         }
+        else
+        {
+            neighbourCells[4] = Cell.Uninitialized();
+        }
+
         if (gridPos.z > 0) // Back
         {
-            int backId = cellId - gridSize.x * gridSize.y;
-            neighbourCells[5] = cells[backId];
+            neighbourCells[5] = cells[cellId - gridSize.x * gridSize.y];
+        }
+        else
+        {
+            neighbourCells[5] = Cell.Uninitialized();
         }
 
         #endregion
@@ -802,22 +830,6 @@ public class WaveFunction : MonoBehaviour
         gridPos.z * gridSize.x * gridSize.y;
     }
 
-    [BurstCompile]
-    private void GridPosToLinearIndex(int3[] gridPositions, ref NativeArray<int> linearIndexs)
-    {
-        int positionAmount = gridPositions.Length;
-
-        for (int i = 0; i < positionAmount; i++)
-        {
-            int3 gridPos = gridPositions[i];
-
-            linearIndexs[i] =
-                gridPos.x +
-                gridPos.y * gridSize.x +
-                gridPos.z * gridSize.x * gridSize.y;
-        }
-    }
-
     #endregion
 
 
@@ -833,6 +845,15 @@ public class WaveFunction : MonoBehaviour
         if (seed == 0)
         {
             seed = 1;
+        }
+
+        //force 1,1,1 splitChunkSize
+        for (int i = 0; i < 3; i++)
+        {
+            if (splittedChunkSize[i] < 1)
+            {
+                splittedChunkSize[i] = 1;
+            }
         }
     }
 }

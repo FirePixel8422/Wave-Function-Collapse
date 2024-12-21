@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveTileData:
   - tilePrefab: {fileID: -1600506921881979915, guid: be9156ca3e8f5c0449a945176aeeaccd, type: 3}
-    weight: 3
-  - tilePrefab: {fileID: -1600506921881979915, guid: d22967a5d0230ac4981089b4a7634448, type: 3}
     weight: 1
+  - tilePrefab: {fileID: -1600506921881979915, guid: d22967a5d0230ac4981089b4a7634448, type: 3}
+    weight: 0.5
   - tilePrefab: {fileID: -5661285117566931388, guid: ce7a701aba5f1f24ca1c157ce8f22e17, type: 3}
     weight: 1
   - tilePrefab: {fileID: 7598078707824420635, guid: c7863f8250ba2a34b8451cbeb18119f4, type: 3}
@@ -26,13 +26,13 @@ MonoBehaviour:
   - tilePrefab: {fileID: 1437358217000277115, guid: b4a8aeece295e4f409e12687311039de, type: 3}
     weight: 1
   - tilePrefab: {fileID: 3297929420533688013, guid: 64f6552f17a076e4eb7a5a49ae3f2f80, type: 3}
-    weight: 0.25
+    weight: 1
   - tilePrefab: {fileID: 8238612480471727983, guid: 08a53dbdea3d6744dbed539f4d13cc1c, type: 3}
-    weight: 0.25
+    weight: 1
   - tilePrefab: {fileID: 5633689592150502473, guid: 52fbbf6acf2bbb64493c9444087e85de, type: 3}
-    weight: 0.25
+    weight: 1
   - tilePrefab: {fileID: 9072382855649801617, guid: fad497ab11bf2814ead816729dd7649f, type: 3}
-    weight: 0.25
+    weight: 1
   - tilePrefab: {fileID: -6561776503106044672, guid: dda01299305eb7e4a9a301900d5cb11b, type: 3}
     weight: 1
   - tilePrefab: {fileID: 8688686392047334169, guid: 20541ea0fa66393409238670d2916054, type: 3}

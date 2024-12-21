@@ -156,6 +156,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -212,6 +216,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -268,6 +276,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -324,6 +336,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -380,6 +396,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -436,6 +456,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -492,6 +516,10 @@ MonoBehaviour:
     x: 4
     y: 1
     z: 4
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 107
   randomSeed: 1
   edgeRequiredConnection: 2
@@ -548,6 +576,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -604,6 +636,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -660,6 +696,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -697,7 +737,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &448149192
 Transform:
   m_ObjectHideFlags: 0
@@ -783,6 +823,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -839,6 +883,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -895,6 +943,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -951,6 +1003,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -1007,6 +1063,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -1063,6 +1123,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -1213,6 +1277,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -1269,6 +1337,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -1325,6 +1397,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -1455,7 +1531,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &985264503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1468,12 +1544,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c339bd33af9524bb7a7cdd9d45cb3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generationTiles: {fileID: 11400000, guid: 3104cab900d859f468fdbcefa86d8b22, type: 2}
+  generationTiles: {fileID: 11400000, guid: 92f3e612d742cc04ca266a9c4b11604d, type: 2}
   gridSize:
-    x: 100
+    x: 50
+    y: 50
+    z: 50
+  splittedChunkSize:
+    x: 1
     y: 1
-    z: 100
-  seed: 1
+    z: 1
+  seed: 396
   randomSeed: 1
   edgeRequiredConnection: 2
   useGPUBasedRendering: 1
@@ -1529,6 +1609,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -1585,6 +1669,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -1641,6 +1729,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -1697,6 +1789,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -1753,6 +1849,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -1809,6 +1909,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -1865,6 +1969,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -1921,6 +2029,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -1977,6 +2089,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -2033,6 +2149,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -2089,6 +2209,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -2145,6 +2269,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -2201,6 +2329,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -2257,6 +2389,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -2313,6 +2449,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -2369,6 +2509,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -2425,6 +2569,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
@@ -2481,6 +2629,10 @@ MonoBehaviour:
     x: 50
     y: 1
     z: 50
+  splittedChunkSize:
+    x: 1
+    y: 1
+    z: 1
   seed: 1
   randomSeed: 1
   edgeRequiredConnection: 3
