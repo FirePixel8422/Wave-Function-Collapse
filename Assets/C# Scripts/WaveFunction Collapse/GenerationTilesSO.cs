@@ -9,12 +9,3 @@ public class GenerationTilesSO : ScriptableObject
     [Header("Tiles used for generation")]
     public WaveTileData[] waveTileData;
 }
-
-
-[System.Serializable]
-public struct WaveTileData
-{
-    public WaveTile tilePrefab;
-
-    public float weight;
-}

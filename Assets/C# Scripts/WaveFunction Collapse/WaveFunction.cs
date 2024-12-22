@@ -130,9 +130,8 @@ public class WaveFunction : MonoBehaviour
         }
 
 
-
-        int3 randomGridPos = Random.Range(int3.zero, gridSize);
-        int startCellId = GridPosToLinearIndex(randomGridPos);
+        //selec random startCell
+        int startCellId = Random.Range(0, cellCount);
 
         //gets used for randomizing cell selection and tile selection, capicity is whatever are more of, cells or tileTypes
         NativeArray<int> toRandomizeTilePool = new NativeArray<int>(math.max(tileCount, cellCount), Allocator.Persistent);
@@ -150,6 +149,7 @@ public class WaveFunction : MonoBehaviour
         //debug
         print("Took: " + sw.ElapsedMilliseconds + " ms");
     }
+
 
     [BurstCompile]
     private struct SetupCellData_JobParallel : IJobParallelFor
@@ -310,10 +310,12 @@ public class WaveFunction : MonoBehaviour
 
 
 
+
     public int cellUpdateTimeMs;
     public int cellUpdateCount;
 
     public Stopwatch sw;
+
 
     [BurstCompile]
     private async Task WaveFunctionLoop(int startCellId, NativeArray<int> requiredTileConnections, NativeArray<Cell> neighbours, NativeArray<int> toRandomizeTilePool, int cellCount, int tileCount, float3 gridWorldPos)
@@ -376,7 +378,7 @@ public class WaveFunction : MonoBehaviour
     [BurstCompile]
     private void GenerateCurrentCellTile(Cell currentCell, NativeArray<int> requiredTileConnections, NativeArray<Cell> neighbours, NativeArray<int> toRandomizeTilePool, int tileCount, int nonCollapsedCellCount, float3 gridWorldPos)
     {
-        CalculateRequiredTileConnections(currentCell, neighbours, ref requiredTileConnections);
+        CalculateTileConnections(currentCell, neighbours, ref requiredTileConnections);
 
 
         #region Check which tiles are an option to generate
@@ -390,13 +392,12 @@ public class WaveFunction : MonoBehaviour
             //check if all sides of the current to Check tile match with the neigbours
             for (int connectorId = 0; connectorId < 6; connectorId++)
             {
-                int toCheckTileConnection = tileStructConnectors[tileId * 6 + connectorId];
                 int requiredConnection = requiredTileConnections[connectorId];
 
 
                 //bitwise check operation
                 //Check if requiredConnection isnt -1 (every combination allowed) and there isnt any matching bits between the two connections
-                if (requiredConnection != -1 && (requiredConnection & toCheckTileConnection) == 0)
+                if (requiredConnection != -1 && (requiredConnection & tileStructConnectors[tileId * 6 + connectorId]) == 0)
                 {
                     isTileCompatible = false;
 
@@ -431,6 +432,7 @@ public class WaveFunction : MonoBehaviour
         for (int i = 0; i < toRandomizeIndex; i++)
         {
             tileRarity = tileStructs[toRandomizeTilePool[i]].weight;
+
             if (rChanceValue <= tileRarity)
             {
                 r = i;
@@ -442,11 +444,11 @@ public class WaveFunction : MonoBehaviour
             }
         }
 
-        if (r == -1 || toRandomizeIndex == 0)
-        {
-            UnityEngine.Debug.LogWarning("NO TILES FOUND, r = " + r + ", randomIndex = " + toRandomizeIndex);
-            r = 0;
-        }
+        //if (r == -1 || toRandomizeIndex == 0)
+        //{
+        //    UnityEngine.Debug.LogWarning("NO TILES FOUND, r = " + r + ", randomIndex = " + toRandomizeIndex);
+        //    r = 0;
+        //}
 
         #endregion
 
@@ -457,19 +459,12 @@ public class WaveFunction : MonoBehaviour
         CollapseCell(currentCell, finalTileType, nonCollapsedCellCount);
 
 
-        //int[] DEBUG_connecotrs = new int[6];
-
         GetNeighbourCells(currentCell.gridId, ref neighbours);
 
         for (int i = 0; i < neighbours.Length; i++)
         {
-            //if (neighbours[i].collapsed)
-            //{
-            //    DEBUG_connecotrs[i] = tileStructConnectors[neighbours[i].tileType * 6 + InvertDirection(i)];
-            //}
-
             //skip non existent or already collapsed neighbours
-            if (neighbours[i].collapsed || neighbours[i].initialized == false)
+            if (neighbours[i].IsUnInitializedOrCollapsed)
             {
                 continue;
             }
@@ -527,7 +522,7 @@ public class WaveFunction : MonoBehaviour
 
 
     [BurstCompile]
-    private void CalculateRequiredTileConnections(Cell currentCell, NativeArray<Cell> neighbours, ref NativeArray<int> requiredTileConnections)
+    private void CalculateTileConnections(Cell currentCell, NativeArray<Cell> neighbours, ref NativeArray<int> requiredTileConnections)
     {
         GetNeighbourCells(currentCell.gridId, ref neighbours);
 
@@ -537,7 +532,6 @@ public class WaveFunction : MonoBehaviour
             //skip unitialized neighbours and mark them as out of bounds (because they are outside of the grid
             if (neighbours[neigbourId].initialized == false)
             {
-                //2 (bitId = 1) is wall
                 requiredTileConnections[neigbourId] = edgeRequiredConnection;
                 continue;
             }
@@ -545,9 +539,7 @@ public class WaveFunction : MonoBehaviour
             //if neigbour is collapsed
             if (neighbours[neigbourId].collapsed)
             {
-                int tileType = neighbours[neigbourId].tileType;
-
-                requiredTileConnections[neigbourId] = tileStructConnectors[tileType * 6 + InvertDirection(neigbourId)];
+                requiredTileConnections[neigbourId] = tileStructConnectors[neighbours[neigbourId].tileType * 6 + InvertDirection(neigbourId)];
             }
             else
             {
@@ -571,23 +563,19 @@ public class WaveFunction : MonoBehaviour
         {
             bool isTileCompatible = true;
 
+            int tileConnectorStartIndex = tileId * 6;
+
             //check if all sides of the current to Check tile match with the neigbours
             for (int connectorId = 0; connectorId < 6; connectorId++)
             {
-                int toCheckTileConnection = tileStructConnectors[tileId * 6 + connectorId];
-                int requiredConnection = requiredTileConnections[connectorId];
-
-
-                //bitwise check operation
                 //Check if there isnt any matching bits between the two connections
-                if ((requiredConnection & toCheckTileConnection) == 0)
+                if ((requiredTileConnections[connectorId] & tileStructConnectors[tileConnectorStartIndex + connectorId]) == 0)
                 {
                     isTileCompatible = false;
 
                     break;
                 }
             }
-
 
 
             //all directions of currentTile are valid, increment tileOptionsCount
@@ -598,13 +586,11 @@ public class WaveFunction : MonoBehaviour
         }
 
 
-        //get currnetCell copy
+        //get currentCell copy, modify it and write it back
         Cell updatedCell = nonCollapsedCells[currentCell.listId];
 
-        //modify copy
         updatedCell.tileOptionCount = tileOptionCount;
 
-        //update cell back
         nonCollapsedCells[currentCell.listId] = updatedCell;
     }
 
@@ -614,105 +600,17 @@ public class WaveFunction : MonoBehaviour
     {
         GetNeighbourCells(currentCell.gridId, ref neighbours);
 
+
         for (int neigbourId = 0; neigbourId < 6; neigbourId++)
         {
-            //skip unitialized neighbours
-            if (neighbours[neigbourId].initialized == false)
+            //skip unitialized and uncollapsed neighbours
+            if (neighbours[neigbourId].IsInitializedAndCollapsed == false)
             {
                 continue;
             }
 
-            //if neigbour is collapsed
-            if (neighbours[neigbourId].collapsed)
-            {
-                int tileType = neighbours[neigbourId].tileType;
-
-                requiredTileConnections[neigbourId] = tileStructConnectors[tileType * 6 + neigbourId];
-            }
+            requiredTileConnections[neigbourId] = tileStructConnectors[neighbours[neigbourId].tileType * 6 + neigbourId];
         }
-    }
-
-
-    [BurstCompile]
-    private void CollapseCell(Cell currentCell, int finalTileType, int nonCollapsedCellCount)
-    {
-        // Use the cell's listIndex to directly access its position
-        int listId = currentCell.listId;
-
-
-        //get swapped from the back cell in nonCollapsedCell list
-        Cell swappedCell = nonCollapsedCells[nonCollapsedCellCount - 1];
-        swappedCell.listId = listId;
-
-        //update swappedcell
-        nonCollapsedCells[listId] = swappedCell;
-
-        //remove last cell
-        nonCollapsedCells.RemoveAt(nonCollapsedCellCount - 1);
-
-
-        //get swapped from back cell equal in cell array
-        Cell cellArrayCell = cells[swappedCell.gridId];
-        cellArrayCell.listId = listId;
-
-        //update cellArrayCell
-        cells[swappedCell.gridId] = cellArrayCell;
-
-
-
-        //collapse copy of cell
-        currentCell.collapsed = true;
-
-        //update copy of cell
-        currentCell.tileType = finalTileType;
-
-        //save copy back
-        cells[currentCell.gridId] = currentCell;
-    }
-
-
-    [BurstCompile]
-    private Cell SelectNewCell(NativeArray<int> toRandomizeTilePool, int nonCollapsedCellCount)
-    {
-        //if there is just 1 cell left, select it and return the function
-        if (nonCollapsedCellCount == 1)
-        {
-            return nonCollapsedCells[0];
-        }
-
-
-        //select new cell based on how many tile options neighbour cells have left
-        int leastOptions = int.MaxValue;
-        int cellsToRandomizeId = 0;
-
-        //pre create data for use in loop
-        int tileOptionsCount;
-
-        //loop over all cells
-        for (int i = 0; i < nonCollapsedCellCount; i++)
-        {
-            tileOptionsCount = nonCollapsedCells[i].tileOptionCount;
-
-
-            //if cell specifically has less options
-            if (tileOptionsCount < leastOptions)
-            {
-                leastOptions = tileOptionsCount;
-
-                cellsToRandomizeId = 0;
-                toRandomizeTilePool[cellsToRandomizeId++] = i;
-            }
-
-            //else if cell had the same amount of options
-            else if (tileOptionsCount == leastOptions)
-            {
-                toRandomizeTilePool[cellsToRandomizeId++] = i;
-            }
-        }
-
-        int r = Random.Range(0, cellsToRandomizeId);
-
-        return nonCollapsedCells[toRandomizeTilePool[r]];
     }
 
 
@@ -721,12 +619,6 @@ public class WaveFunction : MonoBehaviour
     {
         // Convert cellId to gridPos
         int3 gridPos = LinearIndexToGridPos(cellId);
-
-        //reset
-        for (int i = 0; i < 6; i++)
-        {
-            neighbourCells[i] = new Cell();
-        }
 
 
         #region Check and add / mark unintialized neighbors in all directions
@@ -791,6 +683,90 @@ public class WaveFunction : MonoBehaviour
     }
 
 
+    [BurstCompile]
+    private void CollapseCell(Cell currentCell, int finalTileType, int nonCollapsedCellCount)
+    {
+        // Use the cell's listIndex to directly access its position
+        int listId = currentCell.listId;
+
+
+        //get swapped from the back cell in nonCollapsedCell list
+        Cell swappedCell = nonCollapsedCells[nonCollapsedCellCount - 1];
+        swappedCell.listId = listId;
+
+        //update swappedcell
+        nonCollapsedCells[listId] = swappedCell;
+
+        //remove last cell
+        nonCollapsedCells.RemoveAt(nonCollapsedCellCount - 1);
+
+
+        //get swapped from back cell counterpart from cell array
+        Cell cellArrayCell = cells[swappedCell.gridId];
+        cellArrayCell.listId = listId;
+
+        //update cellArrayCell
+        cells[swappedCell.gridId] = cellArrayCell;
+
+
+
+        //collapse copy of cell
+        currentCell.collapsed = true;
+
+        //update copy of cell
+        currentCell.tileType = finalTileType;
+
+        //save copy back
+        cells[currentCell.gridId] = currentCell;
+    }
+
+
+    [BurstCompile]
+    private Cell SelectNewCell(NativeArray<int> toRandomizeTilePool, int nonCollapsedCellCount)
+    {
+        //if there is just 1 cell left, select it and return the function
+        if (nonCollapsedCellCount == 1)
+        {
+            return nonCollapsedCells[0];
+        }
+
+
+        //select new cell based on how many tile options neighbour cells have left
+        int leastOptions = int.MaxValue;
+        int cellsToRandomizeId = 0;
+
+        //pre create data for use in loop
+        int tileOptionsCount;
+
+        //loop over all cells
+        for (int i = 0; i < nonCollapsedCellCount; i++)
+        {
+            tileOptionsCount = nonCollapsedCells[i].tileOptionCount;
+
+
+            //if cell specifically has less options
+            if (tileOptionsCount < leastOptions)
+            {
+                leastOptions = tileOptionsCount;
+
+                //reset randomize pool
+                toRandomizeTilePool[0] = i;
+                cellsToRandomizeId = 1;
+            }
+
+            //else if cell had the same amount of options
+            else if (tileOptionsCount == leastOptions)
+            {
+                toRandomizeTilePool[cellsToRandomizeId++] = i;
+            }
+        }
+
+        int r = Random.Range(0, cellsToRandomizeId);
+
+        return nonCollapsedCells[toRandomizeTilePool[r]];
+    }
+
+
 
 
     #region Extension Grid Methods
@@ -819,15 +795,6 @@ public class WaveFunction : MonoBehaviour
         gridPos.x = linearIndex % gridSize.x;
 
         return gridPos;
-    }
-
-    [BurstCompile]
-    private int GridPosToLinearIndex(int3 gridPos)
-    {
-        return
-        gridPos.x +
-        gridPos.y * gridSize.x +
-        gridPos.z * gridSize.x * gridSize.y;
     }
 
     #endregion

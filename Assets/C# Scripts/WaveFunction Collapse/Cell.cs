@@ -25,6 +25,10 @@ public struct Cell
 
     public bool initialized;
 
+    public readonly bool IsInitializedAndCollapsed => initialized && collapsed;
+    public readonly bool IsUnInitializedOrCollapsed => (initialized == false) || collapsed;
+
+
     public Cell(int _id, int tileCount, bool _collapsed = false)
     {
         gridId = _id;
