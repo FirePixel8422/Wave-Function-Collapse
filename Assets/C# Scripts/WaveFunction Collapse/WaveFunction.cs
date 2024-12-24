@@ -731,39 +731,69 @@ public class WaveFunction : MonoBehaviour
         }
 
 
-        //select new cell based on how many tile options neighbour cells have left
-        int leastOptions = int.MaxValue;
-        int cellsToRandomizeId = 0;
-
-        //pre create data for use in loop
-        int tileOptionsCount;
-
-        //loop over all cells
-        for (int i = 0; i < nonCollapsedCellCount; i++)
+        SelectNewCellJob job = new SelectNewCellJob
         {
-            tileOptionsCount = nonCollapsedCells[i].tileOptionCount;
+            nonCollapsedCells = nonCollapsedCells,
+            nonCollapsedCellCount = nonCollapsedCellCount,
+
+            toRandomizeTilePool = toRandomizeTilePool,
+        };
+
+        JobHandle jobHandle = job.Schedule();
+        
+        jobHandle.Complete();
 
 
-            //if cell specifically has less options
-            if (tileOptionsCount < leastOptions)
-            {
-                leastOptions = tileOptionsCount;
-
-                //reset randomize pool
-                toRandomizeTilePool[0] = i;
-                cellsToRandomizeId = 1;
-            }
-
-            //else if cell had the same amount of options
-            else if (tileOptionsCount == leastOptions)
-            {
-                toRandomizeTilePool[cellsToRandomizeId++] = i;
-            }
-        }
-
-        int r = Random.Range(0, cellsToRandomizeId);
+        int r = Random.Range(0, toRandomizeTilePool[nonCollapsedCellCount - 1]);
 
         return nonCollapsedCells[toRandomizeTilePool[r]];
+    }
+
+
+    [BurstCompile]
+    public struct SelectNewCellJob : IJob
+    {
+        [NoAlias][ReadOnly] public NativeList<Cell> nonCollapsedCells;
+        [NoAlias][ReadOnly] public int nonCollapsedCellCount; 
+
+        [NoAlias] public NativeArray<int> toRandomizeTilePool;
+
+
+        [BurstCompile]
+        public void Execute()
+        {
+            int cellsToRandomizeId = 0;
+
+            int tileOptionsCount;
+            int leastOptions = int.MaxValue;
+
+
+            //loop over all cells
+            for (int i = 0; i < nonCollapsedCellCount; i++)
+            {
+                tileOptionsCount = nonCollapsedCells[i].tileOptionCount;
+
+
+                //if cell specifically has less options
+                if (tileOptionsCount < leastOptions)
+                {
+                    leastOptions = tileOptionsCount;
+
+                    //reset randomize pool
+                    toRandomizeTilePool[0] = i;
+                    cellsToRandomizeId = 1;
+                }
+
+                //else if cell had the same amount of options
+                else if (tileOptionsCount == leastOptions)
+                {
+                    toRandomizeTilePool[cellsToRandomizeId++] = i;
+                }
+            }
+
+            //store toRandomizeCount in last index of array
+            toRandomizeTilePool[nonCollapsedCellCount - 1] = cellsToRandomizeId - 1;
+        }
     }
 
 

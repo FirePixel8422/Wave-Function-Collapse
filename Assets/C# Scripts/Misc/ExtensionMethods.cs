@@ -197,7 +197,7 @@ public static class VectorLogic
 }
 
 
-public static class Random
+public struct Random
 {
     [ThreadStatic]
     private static Unity.Mathematics.Random random;
